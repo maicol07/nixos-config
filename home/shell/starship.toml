@@ -1,0 +1,244 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# A minimal left prompt
+format = """$sudo$directory$status$character"""
+
+# move the rest of the prompt to the right
+right_format = """$all"""
+
+[aws]
+format = '[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
+symbol = " "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[cmd_duration]
+format = '⌛ [$duration]($style) '
+show_notifications = true
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " 🔒"
+home_symbol = "🏠"
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[git_commit]
+tag_symbol = '  '
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+# Let's see later if I want to enable this (currently too verbose for single line prompt)
+[kubernetes]
+disabled = true
+
+[line_break]
+disabled = true
+
+[lua]
+symbol = " "
+
+[memory_usage]
+disabled = false
+symbol = " "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[os]
+disabled = false
+format = "[$symbol$version]($style)"
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+[package]
+symbol = " "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
+
+[python]
+symbol = " "
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = "󱘗 "
+
+[scala]
+symbol = " "
+
+[status]
+disabled = false
+symbol = " "
+
+[sudo]
+allow_windows = true
+format = '[$symbol]($style)'
+disabled = false
+
+[swift]
+symbol = " "
+
+[time]
+format = '🕙 [$time]($style) '
+disabled = false
+
+[zig]
+symbol = " "
+
+[gradle]
+symbol = " "
+
+# Custom module that runs the refresh-prompt-on-cmd time command which shows
+# the time when refreshing and `at --:--:--` when not refreshing.
+[custom.rpoc_time]
+style = "normal"
+when = true
+format = '[$output]($style)'
+# Whenever a custom command is run, starship executes the command in a new
+# shell. If you have a lot of plugins and functions, this can significantly
+# impact how long the module takes to run (and therefore delay the execution
+# of the next command).
+#
+# Using `fish -N` causes fish to not load any config files, but then we need
+# to manually load _refresh_prompt_on_cmd.fish file to make the `rpoc_time`
+# command available in that shell.
+#
+# Ensure the path matches the path to the script on your system or the output
+# will be empty.
+#
+# You can test it with `starship module custom.rpoc_time`.
+shell = ["fish", "-N"]
+command = """
+    source ~/.config/fish/conf.d/_refresh_prompt_on_cmd.fish && rpoc_time
+"""
+
+[custom.rpoc_debug]
+disabled = true
+style = "normal"
+when = true
+format = '[$output]($style)'
+shell = ["fish", "-N"]
+command = """
+    echo "rpoc_is_refreshing: $rpoc_is_refreshing "
+"""

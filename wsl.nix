@@ -1,18 +1,15 @@
 {
-  # FIXME: uncomment the next line if you want to reference your GitHub/GitLab access tokens and other secrets
-  # secrets,
   username,
   hostname,
   pkgs,
   inputs,
+  lib,
   ...
 }: {
-  # FIXME: change to your tz! look it up with "timedatectl list-timezones"
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = "Europe/Rome";
 
   networking.hostName = "${hostname}";
 
-  # FIXME: change your shell here if you don't want fish
   programs.fish.enable = true;
   environment.pathsToLink = ["/share/fish"];
   environment.shells = [pkgs.fish];
@@ -21,24 +18,13 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  # FIXME: uncomment the next line to enable SSH
-  # services.openssh.enable = true;
-
   users.users.${username} = {
     isNormalUser = true;
-    # FIXME: change your shell here if you don't want fish
     shell = pkgs.fish;
     extraGroups = [
       "wheel"
-      # FIXME: uncomment the next line if you want to run docker without sudo
-      # "docker"
+      "docker"
     ];
-    # FIXME: add your own hashed password
-    # hashedPassword = "";
-    # FIXME: add your own ssh public key
-    # openssh.authorizedKeys.keys = [
-    #   "ssh-rsa ..."
-    # ];
   };
 
   home-manager.users.${username} = {
@@ -47,53 +33,46 @@
     ];
   };
 
-  system.stateVersion = "22.05";
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It's perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "24.05"; # Did you read the comment?
 
   wsl = {
     enable = true;
-    wslConf.automount.root = "/mnt";
-    wslConf.interop.appendWindowsPath = false;
-    wslConf.network.generateHosts = false;
     defaultUser = username;
     startMenuLaunchers = true;
+    usbip.enable = true;
+    wslConf.interop.appendWindowsPath = false;
 
     # Enable integration with Docker Desktop (needs to be installed)
-    docker-desktop.enable = false;
+    docker-desktop.enable = true;
+    useWindowsDriver = true;
+    wslConf.automount.ldconfig = true;
   };
 
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
     autoPrune.enable = true;
+    daemon.settings.features.cdi = true;
   };
-
-  # FIXME: uncomment the next block to make vscode running in Windows "just work" with NixOS on WSL
-  # solution adapted from: https://github.com/K900/vscode-remote-workaround
-  # more information: https://github.com/nix-community/NixOS-WSL/issues/238 and https://github.com/nix-community/NixOS-WSL/issues/294
-  # systemd.user = {
-  #   paths.vscode-remote-workaround = {
-  #     wantedBy = ["default.target"];
-  #     pathConfig.PathChanged = "%h/.vscode-server/bin";
-  #   };
-  #   services.vscode-remote-workaround.script = ''
-  #     for i in ~/.vscode-server/bin/*; do
-  #       if [ -e $i/node ]; then
-  #         echo "Fixing vscode-server in $i..."
-  #         ln -sf ${pkgs.nodejs_18}/bin/node $i/node
-  #       fi
-  #     done
-  #   '';
-  # };
+  hardware.nvidia-container-toolkit = {
+    enable = true;
+    mount-nvidia-executables = false;
+  };
+  services.xserver.videoDrivers = [ "nvidia" ];
+  
+  programs.nix-ld.enable = true;
+  environment.variables.NIX_LD_LIBRARY_PATH = lib.mkForce "/run/current-system/sw/share/nix-ld/lib:/usr/lib/wsl/lib";
 
   nix = {
     settings = {
+      experimental-features = "nix-command flakes";
       trusted-users = [username];
-      # FIXME: use your access tokens from secrets.json here to be able to clone private repos on GitHub and GitLab
-      # access-tokens = [
-      #   "github.com=${secrets.github_token}"
-      #   "gitlab.com=OAuth2:${secrets.gitlab_token}"
-      # ];
-
       accept-flake-config = true;
       auto-optimise-store = true;
     };
@@ -111,7 +90,7 @@
     ];
 
     package = pkgs.nixVersions.stable;
-    extraOptions = ''experimental-features = nix-command flakes'';
+    # extraOptions = ''experimental-features = nix-command flakes'';
 
     gc = {
       automatic = true;
