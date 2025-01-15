@@ -27,7 +27,7 @@
       extraConfig = {
         core = {
           autocrlf = "input";
-          sshCommand = "ssh.exe";
+          sshCommand = "/mnt/c/Windows/System32/OpenSSH/ssh.exe";
           eol = "lf";
         };
 
