@@ -9,7 +9,6 @@ php84custom = pkgs.php84.buildEnv {
           mbstring
           opcache
           xdebug
-          xml
           xsl
           zip
         ]));
