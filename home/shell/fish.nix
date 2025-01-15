@@ -6,7 +6,6 @@
     lsd.enableAliases = true;
     zoxide.enable = true;
     zoxide.enableFishIntegration = true;
-    zoxide.options = ["--cmd cd"];
     broot.enable = true;
     broot.enableFishIntegration = true;
     direnv.enable = true;
