@@ -59,8 +59,15 @@
           inherit (pkgs.fishPlugins.fish-bd) src;
         }
         {
-          name = "colored-man-pages";
-          inherit (pkgs.fishPlugins.colored-man-pages) src;
+          name = "colored-man";
+          src = pkgs.fetchFromGitHub {
+            owner = "decors";
+            repo = "fish-colored-man";
+            rev = "1ad8fff696d48c8bf173aa98f9dff39d7916de0e";
+            # How to get:
+            # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/decors/fish-colored-man --quiet --rev 1ad8fff696d48c8bf173aa98f9dff39d7916de0e | jq -r '.sha256')"
+            sha256 = "sha256-uoZ4eSFbZlsRfISIkJQp24qPUNqxeD0JbRb/gVdRYlA=";
+          };
         }
         # Disabled due to https://github.com/franciscolourenco/done/issues/94
         # {
