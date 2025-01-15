@@ -59,6 +59,7 @@
       shellAbbrs =
         {
           gc = "nix-collect-garbage --delete-old";
+          ssh = "/mnt/c/Windows/System32/OpenSSH/ssh.exe";
         }
         # navigation shortcuts
         // {
