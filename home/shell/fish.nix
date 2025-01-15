@@ -116,10 +116,6 @@
           name = "sponge";
           inherit (pkgs.fishPlugins.sponge) src;
         }
-        {
-          name = "sudope";
-          inherit (pkgs.fishPlugins.plugin-sudope) src;
-        }
       ];
     };
   };
