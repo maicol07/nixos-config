@@ -54,18 +54,6 @@
           name = "autopair";
           inherit (pkgs.fishPlugins.autopair) src;
         }
-        
-        {
-          name = "bat";
-          src = pkgs.fetchFromGitHub {
-            owner = "givensuman";
-            repo = "fish-bat";
-            rev = "a70c62c5f059b0a33a7185d27bf1856f36218a20";
-            # How to get:
-            # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/givensuman/fish-bat --quiet --rev main | jq -r '.sha256')"
-            sha256 = "sha256-O0RTaTmtP+Nxns+97CDGUYWX+EpW1mSDsJD6MY/DQwI=";
-          };
-        }
         {
           name = "bd";
           inherit (pkgs.fishPlugins.fish-bd) src;
