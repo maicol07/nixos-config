@@ -36,15 +36,15 @@
 
         # Setup the synchronous prompt that is displayed immediately while the async
         # prompt is loading.
-        set -g STARSHIP_CONFIG_MINIMAL $HOME/.config/starship-minimal.toml
+        # set -g STARSHIP_CONFIG_MINIMAL $HOME/.config/starship-minimal.toml
 
-        function fish_prompt_loading_indicator
-          STARSHIP_CONFIG=$STARSHIP_CONFIG_MINIMAL starship prompt
-        end
+        # function fish_prompt_loading_indicator
+        #   STARSHIP_CONFIG=$STARSHIP_CONFIG_MINIMAL starship prompt
+        # end
 
-        function fish_prompt_right_loading_indicator
-          STARSHIP_CONFIG=$STARSHIP_CONFIG_MINIMAL starship prompt --right
-        end
+        # function fish_prompt_right_loading_indicator
+        #   STARSHIP_CONFIG=$STARSHIP_CONFIG_MINIMAL starship prompt --right
+        # end
 
         # Disable async prompt
         # set -g async_prompt_enable 0
