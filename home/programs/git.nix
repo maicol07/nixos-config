@@ -17,7 +17,7 @@
 
       includes = [
         {
-          condition = "hasconfig:remote.*.url:git@gitlab.trust-itservices.com/**";
+          condition = "hasconfig:remote.*.url:git@gitlab.trust-itservices.com:*/**";
           contents = {
             signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIujyUjvzrsTC7MzvFJn5RK2pf4UyXUQQAoTlrjw+6i9";
           };
