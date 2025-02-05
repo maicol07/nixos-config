@@ -68,6 +68,7 @@ in {
 
     ###### Other ######
     awscli2
+    awsume
     httpie
     terraform
   ];
