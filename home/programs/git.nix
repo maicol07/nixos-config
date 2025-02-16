@@ -13,7 +13,9 @@
       
       userEmail = "maicolbattistini@live.it";
       userName = "Maicol Battistini";
+      signing.format = "ssh";
       signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINsTYhlq5t/r3eawNERL09+PltjDh+fLQO1gE5TgWGmr";
+      signing.signer = "/mnt/c/Users/Maicol/AppData/Local/1Password/app/8/op-ssh-sign.exe";
 
       includes = [
         {
@@ -37,13 +39,6 @@
         init.defaultBranch = "main";
 
         pull.rebase = false;
-
-        gpg.format = "ssh";
-
-        gpg.ssh = {
-           program = "/mnt/c/Users/Maicol/AppData/Local/1Password/app/8/op-ssh-sign.exe";
-           allowedSignersFile = "/home/${username}/.ssh/allowed_signers";
-        };
 
         commit.gpgSign = true;
 
