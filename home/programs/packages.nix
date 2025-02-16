@@ -32,6 +32,8 @@ in {
     duf
     fx
     git-crypt
+    httpie
+    lsof
     nix-inspect
     nixd
     procs
@@ -69,7 +71,7 @@ in {
     ###### Other ######
     awscli2
     awsume
-    httpie
+    pre-commit
     terraform
   ];
 }
