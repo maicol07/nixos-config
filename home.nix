@@ -40,22 +40,4 @@
     nix-index.enableFishIntegration = true;
     nix-index-database.comma.enable = true;
   };
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      fastfetch = prev.fastfetch.overrideAttrs (oldAttrs: {
-        buildInputs =
-          if system == "x86_64-linux" then
-            oldAttrs.buildInputs ++ [ prev.directx-headers ]
-          else
-            oldAttrs.buildInputs;
-
-        cmakeFlags =
-          if system == "x86_64-linux" then
-            oldAttrs.cmakeFlags ++ [ (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" true) ]
-          else
-            oldAttrs.cmakeFlags;
-      });
-    })
-  ];
 }
