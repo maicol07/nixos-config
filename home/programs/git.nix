@@ -32,7 +32,7 @@
           eol = "lf";
         };
 
-        credential.helper = "1password"; # To us with https://github.com/ethrgeist/git-credential-1password
+        credential.helper = "1password"; # To use with https://github.com/ethrgeist/git-credential-1password
 
         init.defaultBranch = "main";
 
