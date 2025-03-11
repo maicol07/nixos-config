@@ -28,6 +28,13 @@
       '';
     };
   };
+  nix.settings.substituters = [
+    "https://nix-community.cachix.org"
+  ];
+
+  nix.settings.trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
   
   # Uncomment when https://github.com/NixOS/nixpkgs/pull/371832 is merged
   # systemd.user.tmpfiles.rules = [
