@@ -36,10 +36,9 @@
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
   ];
   
-  # Uncomment when https://github.com/NixOS/nixpkgs/pull/371832 is merged
-  # systemd.user.tmpfiles.rules = [
-  #   "L+ %h/.local/share/fish/vendor_completions.d/pnpm.fish - - - - ${pkgs.runCommandNoCC "pnpm-completion" {} "${lib.getExe pkgs.pnpm} completion fish >$out"}"
-  # ];
+  systemd.user.tmpfiles.rules = [
+    "L+ %h/.local/share/fish/vendor_completions.d/pnpm.fish - - - - ${pkgs.runCommandNoCC "pnpm-completion" {} "${lib.getExe pkgs.pnpm} completion fish >$out"}"
+  ];
 
   programs = {
     home-manager.enable = true;
