@@ -38,6 +38,17 @@
           "....." = "cd ../../../../";
         };
       plugins = [
+        {
+          name = "artisan-completion";
+          src = pkgs.fetchFromGitHub {
+            owner = "adriaanzon";
+            repo = "fish-artisan-completion";
+            rev = "8e8d726b3862fcb972abb652fb8c1a9fb9207a64";
+            # How to get:
+            # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/adriaanzon/fish-artisan-completion --quiet --rev 8e8d726b3862fcb972abb652fb8c1a9fb9207a64 | jq -r '.sha256')"
+            sha256 = "sha256-+LKQVuWORJcyuL/YZ3B86hpbV4rbSkj41Y9qgwXZXu4=";
+          };
+        }
         # To be compatible with the refresh plugin we need to use the fork
         {
           name = "async-prompt";
