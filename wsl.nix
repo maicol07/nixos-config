@@ -60,9 +60,13 @@
     autoPrune.enable = true;
     daemon.settings.features.cdi = true;
   };
-  hardware.nvidia-container-toolkit = {
-    enable = true;
-    mount-nvidia-executables = false;
+
+  hardware = {
+    nvidia.open = true;
+    nvidia-container-toolkit = {
+      enable = true;
+      mount-nvidia-executables = false;
+    };
   };
   services.xserver.videoDrivers = [ "nvidia" ];
   
