@@ -3,6 +3,7 @@
     enable = true;
     settings = {
       autosu = true;
+      clipboard = "terminal";
       colorscheme = "dukelight-tc";
       eofnewline = false;
       fastdirty = true;
