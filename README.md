@@ -70,3 +70,24 @@ this project uses a flat layout without any nesting or modularization.
   - `home/starship.toml` is where the `starship` configuration is set
   - `home/starship-minimal.toml` is a streamlined version of the `starship`
     configuration that is used from the `fish-async-prompt` plugin
+
+## Utilities commands
+### Upgprade dependencies
+```bash
+nix flake update
+```
+
+### Compare the package versions difference between one deployment and another
+```bash
+nix store diff-closures /nix/var/nix/profiles/system-99-link /nix/var/nix/profiles/system-100-link
+```
+Note: The numbers are the generations of the system. You can find them with
+```bash
+nix profile history --profile /nix/var/nix/profiles/default
+```
+
+### Delete all the old and temporary files from deployments
+```bash
+gc
+```
+(from fish alias)
