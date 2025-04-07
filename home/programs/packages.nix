@@ -60,6 +60,9 @@ in {
   # enabled ++ [ all.imagick ])
     php84custom.out
     php84custom.packages.composer
+
+    # SQL
+    mariadb-client
     
     ###### Formatters and linters ######
     alejandra # nix
