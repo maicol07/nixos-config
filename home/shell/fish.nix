@@ -3,7 +3,7 @@
     fzf.enable = true;
     fzf.enableFishIntegration = true;
     lsd.enable = true;
-    lsd.enableAliases = true;
+    lsd.enableFishIntegration = true;
     zoxide.enable = true;
     zoxide.enableFishIntegration = true;
     broot.enable = true;
