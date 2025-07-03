@@ -113,17 +113,6 @@
           };
         }
         {
-          name = "nix-command-not-found";
-          src = pkgs.fetchFromGitHub {
-            owner = "kpbaks";
-            repo = "nix_command_not_found.fish";
-            rev = "d52d0e56b359bbd8d507b6d8650dfe3487d000ff";
-            # How to get:
-            # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/kpbaks/nix_command_not_found.fish --quiet --rev d52d0e56b359bbd8d507b6d8650dfe3487d000ff | jq -r '.sha256')"
-            sha256 = "sha256-VWQIeKcXyAJrxi797Vir5dnNpwJjjAdHgwFkroNspxU=";
-          };
-        }
-        {
           name = "sponge";
           inherit (pkgs.fishPlugins.sponge) src;
         }
