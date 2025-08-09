@@ -25,6 +25,8 @@ customize to your liking both by removing and adding tools that you prefer.
 
 ## How to install
 > From the great book [NixOS and Flakes](https://nixos-and-flakes.thiscute.world/nixos-with-flakes/other-useful-tips)
+
+Before running the commands below, ensure `hostname` (`networking.hostname` or `wsl.wslConf.network.hostname`) and `username` in your `/etc/nixos/configuration.nix` are set to a supported value in this config.
 ```bash
 git clone git@github.com:maicol07/nixos-wsl-config.git .config/nixos
 sudo mv /etc/nixos /etc/nixos.bak  # Backup the original configuration
