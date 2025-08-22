@@ -78,12 +78,21 @@ nix flake update
 ```
 
 ### Compare the package versions difference between one deployment and another
+All switches:
 ```bash
-nix store diff-closures /nix/var/nix/profiles/system-99-link /nix/var/nix/profiles/system-100-link
+nix profile diff-closures --profile /nix/var/nix/profiles/system
+```
+Between two specific switches:
+```bash
+nix store diff-closures /nix/var/nix/profiles/system-99-link /run/current-system
 ```
 Note: The numbers are the generations of the system. You can find them with
 ```bash
-nix profile history --profile /nix/var/nix/profiles/default
+nix profile history --profile /nix/var/nix/profiles/system
+```
+Note 2: If you only have made one switch then you can use the booted system as base:
+```bash
+nix store diff-closures /run/booted-system /run/current-system
 ```
 
 ### Delete all the old and temporary files from deployments
