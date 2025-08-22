@@ -34,8 +34,6 @@
           eol = "lf";
         };
 
-        credential.helper = "1password"; # To use with https://github.com/ethrgeist/git-credential-1password
-
         init.defaultBranch = "main";
 
         pull.rebase = false;
