@@ -10,6 +10,7 @@ php84custom = pkgs.php84.buildEnv {
           opcache
           xdebug
           xsl
+          yaml
           zip
         ]));
       extraConfig = ''
