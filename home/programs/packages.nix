@@ -1,6 +1,6 @@
-{ pkgs, ... }: let 
+{ pkgs, lib, isWsl ? false, hostname ? "", ... }: let 
 php84custom = pkgs.php84.buildEnv {
-      extensions = ({enabled, all}:
+      extensions = { enabled, all }:
         enabled ++ (with all; [
           bcmath
           curl
@@ -12,70 +12,86 @@ php84custom = pkgs.php84.buildEnv {
           xsl
           yaml
           zip
-        ]));
+        ]);
       extraConfig = ''
         xdebug.mode=debug
       '';
     };
+
+  isServer = hostname == "maicol07-server";
+  isPersonal = hostname == "maicol07-pc" || hostname == "maicol07-galaxy";
+
+  groups = {
+    common = with pkgs; [
+      ###### System ######
+      coreutils
+      curl
+      findutils
+      killall
+      htop
+
+      ###### Utilities ######
+      dos2unix
+      du-dust
+      duf
+      fx
+      httpie
+      lsof
+      nix-inspect
+      procs
+      sd
+      tlrc
+      tree
+      unzip
+      wget
+      zip
+      xcp
+    ];
+
+    # Tools specific to the server host
+    server = with pkgs; [
+      xorg.xauth
+      xclip
+    ];
+
+    # Developer/personal tools for PCs
+    personal = with pkgs; [
+      ###### Programming languages ######
+      python3
+      nodejs_latest
+      corepack_latest
+
+      # PHP toolchain
+      php84custom.out
+      php84custom.packages.composer
+
+      # SQL
+      mariadb-client
+
+      
+      ###### Formatters and linters ######
+      alejandra # nix
+      deadnix # nix
+      shellcheck
+      shfmt
+      statix # nix
+
+      ###### Utilities ######
+      asciinema
+      git-crypt
+      nixd
+      wakatime-cli
+
+      ###### Other ######
+      awscli2
+      awsume
+      pre-commit
+      terraform
+    ] ++ lib.optionals isWsl [ pkgs.wslu ];
+  };
 in {
-  home.packages = with pkgs; [
-    ###### System ######
-    coreutils
-    curl
-    findutils
-    killall
-    htop
-
-    ###### Utilities ######
-    asciinema
-    dos2unix
-    du-dust
-    duf
-    fx
-    git-crypt
-    httpie
-    lsof
-    nix-inspect
-    nixd
-    procs
-    sd
-    tlrc
-    tree
-    unzip
-    wakatime-cli
-    wget
-    wslu
-    zip
-    xcp
-
-    ###### Programming languages ######
-    # python
-    python3
-
-    # nodejs
-    nodejs_latest
-    corepack_latest
-    
-    # PHP
-  #   php84.withExtensions ({ enabled, all }:
-  # enabled ++ [ all.imagick ])
-    php84custom.out
-    php84custom.packages.composer
-
-    # SQL
-    mariadb-client
-    
-    ###### Formatters and linters ######
-    alejandra # nix
-    deadnix # nix
-    shellcheck
-    shfmt
-    statix # nix
-
-    ###### Other ######
-    awscli2
-    awsume
-    pre-commit
-    terraform
-  ];
+  home.packages =
+    groups.common
+    ++ lib.optionals isServer groups.server
+    ++ lib.optionals isPersonal groups.personal;
 }

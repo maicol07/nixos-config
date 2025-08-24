@@ -1,4 +1,4 @@
-{ pkgs, username, ...}: {
+{ pkgs, lib, isWsl ? false, ...}: {
     programs.git = {
       enable = true;
       package = pkgs.git;
@@ -15,7 +15,7 @@
       userName = "Maicol Battistini";
       signing.format = "ssh";
       signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINsTYhlq5t/r3eawNERL09+PltjDh+fLQO1gE5TgWGmr";
-      signing.signer = "/mnt/c/Users/Maicol/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe";
+  signing.signer = lib.mkIf isWsl "/mnt/c/Users/Maicol/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe";
 
       includes = [
         {
@@ -30,9 +30,8 @@
       extraConfig = {
         core = {
           autocrlf = "input";
-          sshCommand = "/mnt/c/Windows/System32/OpenSSH/ssh.exe";
           eol = "lf";
-        };
+        } // lib.optionalAttrs isWsl { sshCommand = "/mnt/c/Windows/System32/OpenSSH/ssh.exe"; };
 
         init.defaultBranch = "main";
 

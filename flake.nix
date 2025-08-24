@@ -32,7 +32,7 @@ inputs = {
 
         overlays = [
           nur.overlays.default
-          (final: prev: {
+          (_: prev: {
             fastfetch = prev.fastfetch.overrideAttrs (oldAttrs: {
               buildInputs =
                 if system == "x86_64-linux" then
@@ -54,7 +54,8 @@ inputs = {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "hm-backup";
-        home-manager.extraSpecialArgs = args;
+  # Pass flake-level special args (hostname, username, isWsl, etc.) to HM modules
+  home-manager.extraSpecialArgs = args;
       };
 
       argDefaults = {
@@ -68,10 +69,11 @@ inputs = {
         system ? "x86_64-linux",
         hostname,
         username,
+        isWsl ? false,
         args ? {},
         modules,
       }: let
-        specialArgs = argDefaults // {inherit hostname username;} // args;
+        specialArgs = argDefaults // { inherit hostname username isWsl; } // args;
       in
         nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
@@ -86,13 +88,38 @@ inputs = {
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-      nixosConfigurations.maicol07-pc = mkNixosConfiguration {
-        hostname = "maicol07-pc";
-        username = "maicol07";
-        modules = [
-          nixos-wsl.nixosModules.wsl
-          ./wsl.nix
-        ];
+      nixosConfigurations = {
+        maicol07-pc = mkNixosConfiguration {
+          hostname = "maicol07-pc";
+          username = "maicol07";
+          isWsl = true;
+          modules = [
+            ./common.nix
+            nixos-wsl.nixosModules.wsl
+            ./wsl.nix
+          ];
+        };
+
+        maicol07-galaxy = mkNixosConfiguration {
+          hostname = "maicol07-galaxy";
+          username = "maicol07";
+          isWsl = true;
+          modules = [
+            ./common.nix
+            nixos-wsl.nixosModules.wsl
+            ./wsl.nix
+          ];
+        };
+
+        maicol07-server = mkNixosConfiguration {
+          hostname = "maicol07-server";
+          username = "maicol07";
+          isWsl = false;
+          modules = [
+            ./common.nix
+            ./server.nix
+          ];
+        };
       };
     };
 }
