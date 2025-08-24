@@ -15,7 +15,7 @@ _: {
   X11Forwarding = true;
       AllowTcpForwarding = "yes";
       AllowAgentForwarding = "yes";
-      UseDNS = "no";
+      UseDns = false;
   Subsystem = "sftp /run/current-system/sw/lib/ssh/sftp-server";
       # modern key exchange/ciphers are used by default in recent NixOS
     };
