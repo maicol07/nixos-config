@@ -3,7 +3,6 @@
   lib,
   username,
   nix-index-database,
-  system,
   ...
 }: {
   imports = [

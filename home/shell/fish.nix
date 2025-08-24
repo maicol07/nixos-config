@@ -1,4 +1,4 @@
-{ pkgs, lib, ...}: {
+{ pkgs, lib, isWsl ? false, ...}: {
   programs = {
     fzf.enable = true;
     fzf.enableFishIntegration = true;
@@ -26,10 +26,12 @@
         refresh = "source $HOME/.config/fish/config.fish";
       };
       shellAbbrs =
-        {
+        ({
           gc = "nix-collect-garbage --delete-old";
-          ssh = "/mnt/c/Windows/System32/OpenSSH/ssh.exe";
         }
+        // lib.optionalAttrs isWsl {
+          ssh = "/mnt/c/Windows/System32/OpenSSH/ssh.exe";
+        })
         # navigation shortcuts
         // {
           ".." = "cd ..";

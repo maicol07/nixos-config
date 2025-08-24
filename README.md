@@ -1,4 +1,4 @@
-# Personal config for NixOS-WSL
+# Personal config for NixOS (multi-host, WSL and non-WSL)
 
 ## What Is Included
 
@@ -32,8 +32,12 @@ git clone git@github.com:maicol07/nixos-wsl-config.git .config/nixos
 sudo mv /etc/nixos /etc/nixos.bak  # Backup the original configuration
 sudo ln -s ~/.config/nixos /etc/nixos
 
-# Deploy the flake.nix located at the default location (/etc/nixos)
-sudo nixos-rebuild switch
+# Deploy specificando l'host desiderato (scegli uno)
+# WSL
+sudo nixos-rebuild switch --flake .#maicol07-pc
+sudo nixos-rebuild switch --flake .#maicol07-galaxy
+# Server (non WSL)
+sudo nixos-rebuild switch --flake .#maicol07-server
 ```
 
 ## Project Layout
@@ -53,12 +57,9 @@ this project uses a flat layout without any nesting or modularization.
   - `nixos-wsl` exposes important WSL-specific configuration options
   - `nix-index-database` tells you how to install a package when you run a
     command which requires a binary not in the `$PATH`
-- `wsl.nix` is where the VM is configured
-  - The hostname is set here
-  - The default shell is set here
-  - User groups are set here
-  - WSL configuration options are set here
-  - NixOS options are set here
+- `common.nix` has common options for all hosts (shell, user, nix, docker, etc.)
+- `wsl.nix` only includes WSL-specific options (Docker Desktop integration, nix-ld, Nvidia in WSL)
+- `server.nix` is a placeholder for non-WSL server-specific settings
 - `home.nix` is where home configurations are set
 - `home/programs` is the directory that contains all the programs that are installed
   on the system and their configurations
