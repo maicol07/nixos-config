@@ -1,4 +1,4 @@
-{pkgs, hostname}: {
+{ pkgs, hostname, ... }: {
   # Base server hardening/services (non-WSL)
    
    imports = [
