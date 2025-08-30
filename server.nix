@@ -32,8 +32,8 @@ _: {
       "max-size" = "10m";
       "max-file" = "3";
     };
-    # keep containers running across daemon restarts
-    "live-restore" = true;
+    # DISABLE keep containers running across daemon restarts (needed for Swarm)
+    "live-restore" = false;
     # avoid address conflicts across nodes (adjust as needed)
     "default-address-pools" = [ { "base" = "10.0.0.0/8"; "size" = 24; } ];
   };
