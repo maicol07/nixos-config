@@ -70,11 +70,11 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
-  X11Forwarding = true;
+      X11Forwarding = true;
       AllowTcpForwarding = "yes";
       AllowAgentForwarding = "yes";
       UseDns = false;
-  Subsystem = "sftp /run/current-system/sw/lib/ssh/sftp-server";
+      Subsystem = "sftp /run/current-system/sw/lib/ssh/sftp-server";
       # modern key exchange/ciphers are used by default in recent NixOS
     };
   };
@@ -124,18 +124,34 @@
   services.xrdp = {
     enable = true;
     openFirewall = false;
-    defaultWindowManager = "gnome-session";
+  # Start KDE Plasma on X11 for XRDP sessions
+  defaultWindowManager = "startplasma-x11";
   };
 
   # Cockpit (web admin UI on port 9090)
   services.cockpit.enable = true;
 
-  # Desktop environment for local and XRDP sessions: GNOME on Xorg
+  # Desktop environment for local and XRDP sessions: KDE Plasma (Xorg)
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    # Force Xorg for XRDP compatibility
-    displayManager.gdm.wayland = false;
-    desktopManager.gnome.enable = true;
   };
+  services.displayManager.sddm.enable = true;
+  # Prefer Xorg with SDDM for better XRDP compatibility
+  services.displayManager.sddm.wayland.enable = false;
+  services.desktopManager.plasma6.enable = true;
+
+  #
+  # KDE Exclusions
+  #
+  environment.plasma6.excludePackages = with pkgs; [
+    kdePackages.elisa # Simple music player aiming to provide a nice experience for its users
+    kdePackages.kdepim-runtime # Akonadi agents and resources
+    kdePackages.kmahjongg # KMahjongg is a tile matching game for one or two players
+    kdePackages.kmines # KMines is the classic Minesweeper game
+    kdePackages.konversation # User-friendly and fully-featured IRC client
+    kdePackages.kpat # KPatience offers a selection of solitaire card games
+    kdePackages.ksudoku # KSudoku is a logic-based symbol placement puzzle
+    kdePackages.ktorrent # Powerful BitTorrent client
+    mpv
+  ];
 }
