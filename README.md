@@ -31,19 +31,21 @@ Before running the commands below, ensure `hostname` (`networking.hostname` or `
 git clone git@github.com:maicol07/nixos-config.git $HOME/.config/nixos
 sudo mv /etc/nixos /etc/nixos.bak  # Backup the original configuration
 
+cd $HOME/.config/nixos
+
 # If /etc/nixos/nixos.bak/hardware-configuration.nix exists, copy it to the new config
 if [ -f /etc/nixos.bak/hardware-configuration.nix ]; then
-  sudo cp /etc/nixos.bak/hardware-configuration.nix "$HOME/.config/nixos/hardware-configuration.nix"
+  sudo cp /etc/nixos.bak/hardware-configuration.nix "./hardware/<host>/hardware-configuration.nix"
+  # Add to git (repo is located in $HOME/.config/nixos)
+  git add "./hardware/<host>/hardware-configuration.nix"
 fi
 
-sudo ln -s ~/.config/nixos /etc/nixos
-
-# Deploy specificando l'host desiderato (scegli uno)
+# Deploy choosing the host (note that absolute paths are not strictly required, relative ones are fine too)
 # WSL
-sudo nixos-rebuild switch --flake .#maicol07-pc
-sudo nixos-rebuild switch --flake .#maicol07-galaxy
+sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-pc
+sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-galaxy
 # Server (non WSL)
-sudo nixos-rebuild switch --flake .#maicol07-server
+sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-server
 ```
 
 ## Project Layout
