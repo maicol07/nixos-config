@@ -50,6 +50,11 @@ php84custom = pkgs.php84.buildEnv {
 
     # Tools specific to the server host
     server = with pkgs; [
+      # KDE
+      kdePackages.discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
+      kdePackages.sddm-kcm # Configuration module for SDDM
+      # Non-KDE graphical packages
+      hardinfo2 # System information and benchmarks for Linux systems
       xorg.xauth
       xclip
     ];
