@@ -46,3 +46,5 @@ end
 # if test -n "$VIRTUAL_ENV" && not string match -q "$PWD" "$VIRTUAL_ENV"
 #     deactivate
 # end
+
+set sponge_purge_only_on_exit true
