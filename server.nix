@@ -21,13 +21,6 @@ _: {
     };
   };
 
-  # Fail2ban for SSH/others (uses journald by default)
-  security.fail2ban = {
-    enable = true;
-    bantime = "1h"; # optional: adjust as needed
-    ignoreIP = [ "127.0.0.1/8" "::1" ];
-  };
-
   # Logrotate for traditional logs (journald is separate)
   services.logrotate.enable = true;
 
