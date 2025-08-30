@@ -69,10 +69,8 @@ _: {
     defaultWindowManager = "gnome-session";
   };
 
-  # Webmin (admin UI on port 10000)
-  services.webmin.enable = true;
-
-  # SSH X11 forwarding and SFTP configured above in services.openssh.settings
+  # Cockpit (web admin UI on port 9090)
+  services.cockpit.enable = true;
 
   # Desktop environment for local and XRDP sessions: GNOME on Xorg
   services.xserver = {
