@@ -28,8 +28,14 @@ customize to your liking both by removing and adding tools that you prefer.
 
 Before running the commands below, ensure `hostname` (`networking.hostname` or `wsl.wslConf.network.hostname`) and `username` in your `/etc/nixos/configuration.nix` are set to a supported value in this config.
 ```bash
-git clone git@github.com:maicol07/nixos-wsl-config.git .config/nixos
+git clone git@github.com:maicol07/nixos-config.git $HOME/.config/nixos
 sudo mv /etc/nixos /etc/nixos.bak  # Backup the original configuration
+
+# If /etc/nixos/nixos.bak/hardware-configuration.nix exists, copy it to the new config
+if [ -f /etc/nixos.bak/hardware-configuration.nix ]; then
+  sudo cp /etc/nixos.bak/hardware-configuration.nix "$HOME/.config/nixos/hardware-configuration.nix"
+fi
+
 sudo ln -s ~/.config/nixos /etc/nixos
 
 # Deploy specificando l'host desiderato (scegli uno)
