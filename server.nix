@@ -1,10 +1,13 @@
 { pkgs, hostname, ... }: {
   # Base server hardening/services (non-WSL)
    
-   imports = [
-    # Include the hardware configuration
-    ./hardware-configuration.nix
-   ];
+   # Include the hardware configuration if present in this repo (on the target host it will exist)
+   imports = (
+     if builtins.pathExists ./hardware-configuration.nix then
+       [ ./hardware-configuration.nix ]
+     else
+       []
+   );
 
   # Bootloader.
   boot.loader.grub.enable = true;
