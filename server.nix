@@ -79,6 +79,11 @@
     };
   };
 
+  # Autorizza solo le tue chiavi SSH per l'utente (accesso server)
+  users.users.maicol07.openssh.authorizedKeys.keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIujyUjvzrsTC7MzvFJn5RK2pf4UyXUQQAoTlrjw+6i9"
+  ];
+
   # Logrotate for traditional logs (journald is separate)
   services.logrotate.enable = true;
 
