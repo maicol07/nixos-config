@@ -27,8 +27,7 @@
   };
   # Create directory for Secure Boot keys (owned by root, not world-readable)
   systemd.tmpfiles.rules = [ "d /var/lib/sbctl 0700 root root -" ];
-  # Key management tool
-  environment.systemPackages = pkgs.lib.mkAfter [ pkgs.sbctl ];
+  # Key management tool (sbctl) added later together with krdp
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -139,24 +138,25 @@
     powerManagement.enable = false;
   };
 
-  # XRDP for headless RDP logins
-  services.xrdp = {
-    enable = true;
-    openFirewall = false;
-  # Start KDE Plasma on X11 for XRDP sessions
-  defaultWindowManager = "startplasma-x11";
-  };
+  # Remote Desktop: switch from xrdp (X11) to krdp (Wayland RDP implementation for Plasma)
+  # krdp provides RDP access to an existing Wayland Plasma session.
+  # If you need fully headless auto-start, you can enable SDDM autologin below.
+  environment.systemPackages = pkgs.lib.mkAfter [ pkgs.sbctl pkgs.kdePackages.krdp ];
 
   # Cockpit (web admin UI on port 9090)
   services.cockpit.enable = true;
 
-  # Desktop environment for local and XRDP sessions: KDE Plasma (Xorg)
-  services.xserver = {
+  # Desktop environment: KDE Plasma (Wayland)
+  services.xserver.enable = true; # still required for various input/video paths
+  services.displayManager.sddm = {
     enable = true;
+    wayland.enable = true;
+    # Uncomment for headless login providing a live session for krdp:
+    # autoLogin = {
+    #   enable = true;
+    #   user = "maicol07";
+    # };
   };
-  services.displayManager.sddm.enable = true;
-  # Prefer Xorg with SDDM for better XRDP compatibility
-  services.displayManager.sddm.wayland.enable = false;
   services.desktopManager.plasma6.enable = true;
 
   #
