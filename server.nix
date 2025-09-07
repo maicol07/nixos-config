@@ -95,7 +95,7 @@
     };
   };
 
-  # Autorizza solo le tue chiavi SSH per l'utente (accesso server)
+  # Restrict SSH access to your specified public key only (user scope)
   users.users.maicol07.openssh.authorizedKeys.keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIujyUjvzrsTC7MzvFJn5RK2pf4UyXUQQAoTlrjw+6i9"
   ];
