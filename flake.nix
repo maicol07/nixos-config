@@ -15,6 +15,12 @@ inputs = {
 
   nix-index-database.url = "github:Mic92/nix-index-database";
   nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+  lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+
+      # Optional but recommended to limit the size of your system closure.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
@@ -117,6 +123,7 @@ inputs = {
           isWsl = false;
           modules = [
             ./common.nix
+            lanzaboote.nixosModules.lanzaboote
             ./server.nix
           ];
         };
