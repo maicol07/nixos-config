@@ -3,8 +3,8 @@
    
    # Include the hardware configuration if present in this repo (on the target host it will exist)
    imports = (
-     if builtins.pathExists ./hardware-configuration.nix then
-       [ ./hardware-configuration.nix ]
+     if builtins.pathExists ./hardware/${hostname}/hardware-configuration.nix then
+       [ ./hardware/${hostname}/hardware-configuration.nix ]
      else
        []
    );
