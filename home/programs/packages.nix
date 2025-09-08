@@ -31,6 +31,7 @@ php84custom = pkgs.php84.buildEnv {
       htop
 
       ###### Utilities ######
+      croc
       dos2unix
       du-dust
       duf
