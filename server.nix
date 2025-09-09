@@ -80,7 +80,7 @@
   # OpenSSH hardened defaults
   services.openssh = {
     enable = true;
-  openFirewall = false;
+    openFirewall = false;
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
@@ -103,24 +103,33 @@
   services.logrotate.enable = true;
 
   # Docker daemon tuning for Swarm nodes
-  virtualisation.docker.daemon.settings = {
-    # limit container logs to avoid filling disk
-    "log-driver" = "json-file";
-    "log-opts" = {
-      "max-size" = "10m";
-      "max-file" = "3";
-    };
-    # DISABLE keep containers running across daemon restarts (needed for Swarm)
-    "live-restore" = false;
-    # Expose NVIDIA runtime for GPU workloads (Swarm services can use 'deploy.resources.reservations.devices')
-    runtimes = {
-      nvidia = {
-        path = "nvidia-container-runtime";
-        runtimeArgs = [ ];
+  virtualisation.docker = {
+    enable = true;
+    autoPrune.enable = true;
+    daemon.settings = {
+      features.cdi = true;
+      # limit container logs to avoid filling disk
+      "log-driver" = "json-file";
+      "log-opts" = {
+        "max-size" = "10m";
+        "max-file" = "3";
       };
+      # DISABLE keep containers running across daemon restarts (needed for Swarm)
+      "live-restore" = false;
+      # Expose NVIDIA runtime for GPU workloads (Swarm services can use 'deploy.resources.reservations.devices')
+      # runtimes = {
+      #   nvidia = {
+      #     path = "nvidia-container-runtime";
+      #     runtimeArgs = [ ];
+      #   };
+      # };
+      # "node-generic-resources" = [
+      #   "NVIDIA-GPU-0=GPU-e6958216-8665-fd09-407b-8d10eb98b1d4"
+      #   "NVIDIA-GPU-1=GPU-993e1b4a-47eb-186e-2cfc-2a0c1e2a6d30"
+      # ];
+      # Uncomment to force all containers to use nvidia runtime by default
+      # "default-runtime" = "nvidia";
     };
-    # Uncomment to force all containers to use nvidia runtime by default
-    # "default-runtime" = "nvidia";
   };
 
   # Auto-upgrade NixOS from this flake
@@ -142,7 +151,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
-    open = true;
+    open = false; # Needed to support Quadro K620
     nvidiaSettings = true;
     powerManagement.enable = false;
   };
