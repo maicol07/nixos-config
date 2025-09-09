@@ -41,19 +41,6 @@
     imports = [ ./home.nix ];
   };
 
-  # Docker: on WSL use Docker Desktop integration only (no native engine);
-  # on non-WSL hosts enable the native Docker daemon.
-  virtualisation.docker =
-    if isWsl then
-      { enable = false; }
-    else
-      {
-        enable = true;
-        enableOnBoot = true;
-        autoPrune.enable = true;
-        daemon.settings.features.cdi = true;
-      };
-
   # Nix settings common to all hosts
   nix = {
     settings = {
