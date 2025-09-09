@@ -27,7 +27,6 @@
   fileSystems."/mnt/hdd" =
     { device = "/dev/disk/by-uuid/c5b97ae3-8a5d-42c6-ad6d-f306b83740ce";
       fsType = "ext4";
-      options = [ "fmask=0077" "dmask=0077" ];
     };
 
   swapDevices =
