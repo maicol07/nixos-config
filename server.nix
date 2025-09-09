@@ -112,6 +112,15 @@
     };
     # DISABLE keep containers running across daemon restarts (needed for Swarm)
     "live-restore" = false;
+    # Expose NVIDIA runtime for GPU workloads (Swarm services can use 'deploy.resources.reservations.devices')
+    runtimes = {
+      nvidia = {
+        path = "nvidia-container-runtime";
+        runtimeArgs = [ ];
+      };
+    };
+    # Uncomment to force all containers to use nvidia runtime by default
+    # "default-runtime" = "nvidia";
   };
 
   # Auto-upgrade NixOS from this flake
@@ -137,6 +146,7 @@
     nvidiaSettings = true;
     powerManagement.enable = false;
   };
+  hardware.nvidia-container-toolkit.enable = true;
 
   # Remote Desktop: switch from xrdp (X11) to krdp (Wayland RDP implementation for Plasma)
   # krdp provides RDP access to an existing Wayland Plasma session.
