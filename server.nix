@@ -154,7 +154,15 @@
   environment.systemPackages = pkgs.lib.mkAfter [ pkgs.sbctl pkgs.kdePackages.krdp ];
 
   # Cockpit (web admin UI on port 9090)
-  services.cockpit.enable = true;
+  services.cockpit = {
+    enable = true;
+    settings = {
+      WebService = {
+        # AllowUnencrypted = true; # Allow unencrypted connections (optional)
+        Origins = lib.mkForce "https://192.168.1.111:9090 wss://192.168.1.111:9090";
+      };
+    };
+  };
 
   # Desktop environment: KDE Plasma (Wayland)
   services.xserver.enable = true; # still required for various input/video paths
