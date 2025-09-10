@@ -1,4 +1,4 @@
-{ username, hostname, pkgs, inputs, isWsl, ... }: {
+{ username, hostname, pkgs, inputs, ... }: {
   # Common system configuration shared across all hosts
   time.timeZone = "Europe/Rome";
 
