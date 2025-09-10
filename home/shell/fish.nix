@@ -116,7 +116,14 @@
         }
         {
           name = "sponge";
-          inherit (pkgs.fishPlugins.sponge) src;
+          src = pkgs.fetchFromGitHub {
+            owner = "halostatue";
+            repo = "sponge";
+            rev = "v1.2.0";
+            # How to get:
+            # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/halostatue/sponge --quiet --rev v1.2.0 | jq -r '.sha256')"
+            sha256 = "sha256-3Qpt4guoxh9Ag61WasjCYlxSI0W0XG8uWYBertPB+Ck=";
+          };
         }
       ];
     };
