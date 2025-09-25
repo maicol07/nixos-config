@@ -92,6 +92,7 @@ php84custom = pkgs.php84.buildEnv {
       ###### Other ######
       awscli2
       awsume
+      epiphany
       kdash
       kubecolor
       pre-commit
