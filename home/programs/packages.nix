@@ -93,6 +93,7 @@ php84custom = pkgs.php84.buildEnv {
       awscli2
       awsume
       kdash
+      kubecolor
       pre-commit
       terraform
     ] ++ lib.optionals isWsl [ pkgs.wslu ];
