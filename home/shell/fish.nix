@@ -1,21 +1,31 @@
 { pkgs, lib, isWsl ? false, ...}: {
   programs = {
-    fzf.enable = true;
-    fzf.enableFishIntegration = true;
-    lsd.enable = true;
-    lsd.enableFishIntegration = true;
-    zoxide.enable = true;
-    zoxide.enableFishIntegration = true;
-    broot.enable = true;
-    broot.enableFishIntegration = true;
-    direnv.enable = true;
-    direnv.nix-direnv.enable = true;
+    fzf = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    lsd = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    broot = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
 
     starship = {
-    enable = true;
-    enableInteractive = false;
-    settings = pkgs.lib.importTOML ./starship.toml;
-  };
+      enable = true;
+      enableInteractive = false;
+      settings = pkgs.lib.importTOML ./starship.toml;
+    };
 
     fish = {
       enable = true;
