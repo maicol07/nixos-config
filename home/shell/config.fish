@@ -69,3 +69,5 @@ if type -q kubectl
         command kubecolor $argv
     end
 end
+
+set -gx LS_COLORS "$(vivid generate modus-operandi)"
