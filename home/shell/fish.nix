@@ -7,6 +7,10 @@
     lsd = {
       enable = true;
       enableFishIntegration = true;
+      settings = {
+        header = true;
+        hyperlink = "auto";
+      };
     };
     zoxide = {
       enable = true;
