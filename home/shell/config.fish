@@ -70,4 +70,4 @@ if type -q kubectl
     end
 end
 
-set -gx LS_COLORS "$(vivid generate modus-operandi)"
+# To be run once: set -U LS_COLORS "$(vivid generate modus-operandi)"
