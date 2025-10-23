@@ -2,20 +2,12 @@
     programs.git = {
       enable = true;
       package = pkgs.git;
-      delta.enable = true;
-      delta.options = {
-        line-numbers = true;
-        side-by-side = true;
-        navigate = true;
-      };
 
       lfs.enable = true;
       
-      userEmail = "maicolbattistini@live.it";
-      userName = "Maicol Battistini";
       signing.format = "ssh";
       signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINsTYhlq5t/r3eawNERL09+PltjDh+fLQO1gE5TgWGmr";
-  signing.signer = lib.mkIf isWsl "/mnt/c/Users/Maicol/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe";
+      signing.signer = lib.mkIf isWsl "/mnt/c/Users/Maicol/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe";
 
       includes = [
         {
@@ -27,7 +19,7 @@
         }
       ];
 
-      extraConfig = {
+      settings = {
         core = {
           autocrlf = "input";
           eol = "lf";
@@ -45,6 +37,15 @@
         diff = {
           colorMoved = "default";
         };
+        user = {
+          email = "maicolbattistini@live.it";
+          name = "Maicol Battistini";
+        };
       };
+    };
+
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
     };
 }
