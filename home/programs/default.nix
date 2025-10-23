@@ -13,6 +13,10 @@
     gh.enable = true;
     lazygit.enable = true;
     less.enable = true;
-    vivid.enable = true;
+    vivid = {
+      enable = true;
+      enableFishIntegration = true;
+      activeTheme = "modus-operandi";
+    };
   };
 }
