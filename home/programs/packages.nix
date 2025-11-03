@@ -33,7 +33,7 @@ php84custom = pkgs.php84.buildEnv {
       ###### Utilities ######
       croc
       dos2unix
-      du-dust
+      dust
       duf
       fx
       httpie
@@ -73,7 +73,7 @@ php84custom = pkgs.php84.buildEnv {
       php84custom.packages.composer
 
       # SQL
-      mariadb-client
+      mariadb.client
 
       
       ###### Formatters and linters ######
