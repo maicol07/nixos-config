@@ -93,7 +93,7 @@ php84custom = pkgs.php84.buildEnv {
       awscli2
       awsume
       epiphany
-      kdash
+      k9s
       kubecolor
       pre-commit
       terraform
