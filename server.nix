@@ -31,6 +31,10 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10; # Reduce swap usage
+    "fs.inotify.max_user_watches" = 524288; # Increase inotify watches for file watchers
+  };
 
   networking.hostName = hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
