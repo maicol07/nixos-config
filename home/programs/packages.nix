@@ -56,7 +56,10 @@ php84custom = pkgs.php84.buildEnv {
       kdePackages.sddm-kcm # Configuration module for SDDM
       # Non-KDE graphical packages
       hardinfo2 # System information and benchmarks for Linux systems
-      nvidia-container-toolkit
+      dmidecode # DMI table decoder
+      lshw # List hardware
+      lsscsi # List SCSI devices (including SATA, NVMe, etc.)
+      lshw-gui # GUI for lshw
       xorg.xauth
       xclip
     ];
