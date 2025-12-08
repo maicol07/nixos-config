@@ -69,7 +69,7 @@ php84custom = pkgs.php84.buildEnv {
       ###### Programming languages ######
       python3
       nodejs_latest
-      corepack_latest
+      corepack
 
       # PHP toolchain
       php84custom.out

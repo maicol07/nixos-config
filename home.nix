@@ -23,7 +23,7 @@
       installPnpmCompletions = lib.hm.dag.entryAfter ["writeBoundary"] ''
       mkdir -p /home/${username}/.local/share/fish/vendor_completions.d
       rm -f /home/${username}/.local/share/fish/vendor_completions.d/pnpm.fish
-        ${pkgs.corepack_latest}/bin/pnpm completion fish > /home/${username}/.local/share/fish/vendor_completions.d/pnpm.fish
+        ${pkgs.corepack}/bin/pnpm completion fish > /home/${username}/.local/share/fish/vendor_completions.d/pnpm.fish
       '';
     };
   };
