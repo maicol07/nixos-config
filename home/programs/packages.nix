@@ -37,6 +37,7 @@ php84custom = pkgs.php84.buildEnv {
       duf
       fx
       httpie
+      jq
       lsof
       nix-inspect
       procs
@@ -99,6 +100,7 @@ php84custom = pkgs.php84.buildEnv {
       k9s
       kubecolor
       pre-commit
+      supabase-cli
       terraform
     ] ++ lib.optionals isWsl [ pkgs.wslu ];
   };
