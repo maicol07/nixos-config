@@ -89,7 +89,10 @@ php84custom = pkgs.php84.buildEnv {
 
       ###### Utilities ######
       asciinema
+      dive
+      dtop
       git-crypt
+      git-interactive-rebase-tool
       nixd
       wakatime-cli
 
