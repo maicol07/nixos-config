@@ -36,15 +36,18 @@
     "fs.inotify.max_user_watches" = 524288; # Increase inotify watches for file watchers
   };
 
-  networking.hostName = hostname;
+  networking = {
+    hostName = hostname;
+    networkmanager.enable = true; # Enable NetworkManager for network management
+    # Enable Wake-on-LAN
+    interfaces.enp0s25.wakeOnLan.enable = true;
+    # firewall.allowedUDPPorts = [ 9 ]; # Allow WOL magic packet
+  };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
   
   # Configure keymap in X11
   services.xserver.xkb = {
