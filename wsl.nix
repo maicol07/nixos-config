@@ -24,7 +24,10 @@
       mount-nvidia-executables = false;
     };
   };
-  services.xserver.videoDrivers = lib.mkIf (config.networking.hostName == "maicol07-pc") [ "nvidia" ];
+  services.xserver.videoDrivers = lib.mkMerge [
+    (lib.mkIf (config.networking.hostName == "maicol07-pc") [ "nvidia" ])
+    (lib.mkIf (config.networking.hostName == "maicol07-galaxy") [ "intel" ])
+  ];
   
   programs.nix-ld.enable = true;
   environment.variables.NIX_LD_LIBRARY_PATH = lib.mkForce "/run/current-system/sw/share/nix-ld/lib:/usr/lib/wsl/lib";
