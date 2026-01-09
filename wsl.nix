@@ -1,6 +1,7 @@
 {
   username,
   lib,
+  config,
   ...
 }: {
   wsl = {
@@ -16,14 +17,14 @@
     wslConf.automount.ldconfig = true;
   };
   
-  hardware = {
+  hardware = lib.mkIf (config.networking.hostName == "maicol07-pc") {
     nvidia.open = true;
     nvidia-container-toolkit = {
       enable = true;
       mount-nvidia-executables = false;
     };
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = lib.mkIf (config.networking.hostName == "maicol07-pc") [ "nvidia" ];
   
   programs.nix-ld.enable = true;
   environment.variables.NIX_LD_LIBRARY_PATH = lib.mkForce "/run/current-system/sw/share/nix-ld/lib:/usr/lib/wsl/lib";
