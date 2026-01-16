@@ -69,6 +69,7 @@ php84custom = pkgs.php84.buildEnv {
       ###### Programming languages ######
       python3
       nodejs_latest
+      deno
       corepack
 
       # PHP toolchain
