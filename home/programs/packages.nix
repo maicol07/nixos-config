@@ -102,6 +102,7 @@ php84custom = pkgs.php84.buildEnv {
       epiphany
       k9s
       kubecolor
+      kubectx
       pre-commit
       supabase-cli
       terraform
