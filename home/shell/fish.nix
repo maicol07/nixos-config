@@ -144,16 +144,7 @@
   };
 
 # Needs fisher, not working ATM
-#   home.file = {
-#     ".config/fish-ai.ini".text = "[fish-ai]
-# configuration = github
-
-# [github]
-# provider = self-hosted
-# server = https://models.inference.ai.azure.com
-# api_key = ${secrets.fish-ai-api-key}
-# model = gpt-4o-mini";
-    
-#     ".config/starship-minimal.toml".source = ./starship-minimal.toml;
-#   };
+  home.file = {
+    ".config/starship-minimal.toml".source = ./starship-minimal.toml;
+  };
 }
