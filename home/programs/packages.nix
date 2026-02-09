@@ -36,6 +36,7 @@ php84custom = pkgs.php84.buildEnv {
       dust
       duf
       fx
+      grc
       httpie
       jq
       lsof
@@ -91,6 +92,8 @@ php84custom = pkgs.php84.buildEnv {
       asciinema
       dive
       dtop
+      gemini-cli
+      geminicommit
       git-crypt
       git-interactive-rebase-tool
       nixd
