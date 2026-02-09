@@ -17,12 +17,18 @@ symbol = " "
 [c]
 symbol = " "
 
-[conda]
-symbol = " "
+[character]
+success_symbol = '[➜](bold blue) '
+error_symbol = '[➜](bold red) '
 
 [cmd_duration]
+disabled = false
 format = '⌛ [$duration]($style) '
+min_time = 1
 show_notifications = true
+
+[conda]
+symbol = " "
 
 [crystal]
 symbol = " "
@@ -55,6 +61,19 @@ symbol = " "
 
 [git_commit]
 tag_symbol = '  '
+
+[git_status]
+conflicted = "="
+ahead =	"⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+up_to_date = " 󰄸 "
+untracked = "?${count}"
+stashed = ""
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = " ${count}"
 
 [golang]
 symbol = " "
