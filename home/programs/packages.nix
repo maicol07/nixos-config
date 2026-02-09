@@ -106,7 +106,7 @@ php84custom = pkgs.php84.buildEnv {
       k9s
       kubecolor
       kubectx
-      pre-commit
+      prek
       supabase-cli
       terraform
     ] ++ lib.optionals isWsl [ pkgs.wslu ];
