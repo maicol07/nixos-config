@@ -65,21 +65,13 @@
             sha256 = "sha256-+LKQVuWORJcyuL/YZ3B86hpbV4rbSkj41Y9qgwXZXu4=";
           };
         }
-        # To be compatible with the refresh plugin we need to use the fork
-        {
-          name = "async-prompt";
-          src = pkgs.fetchFromGitHub {
-            owner = "infused-kim";
-            repo = "fish-async-prompt";
-            rev = "07e107635e693734652b0709dd34166820f1e6ff";
-            # How to get:
-            # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/infused-kim/fish-async-prompt --quiet --rev 07e107635e693734652b0709dd34166820f1e6ff | jq -r '.sha256')"
-            sha256 = "sha256-rE80IuJEqnqCIE93IzeT2Nder9j4fnhFEKx58HJUTPk=";
-          };
-        }
         {
           name = "autopair";
           inherit (pkgs.fishPlugins.autopair) src;
+        }
+        {
+          name = "aws";
+          inherit (pkgs.fishPlugins.aws) src;
         }
         {
           name = "bd";
@@ -87,14 +79,7 @@
         }
         {
           name = "colored-man";
-          src = pkgs.fetchFromGitHub {
-            owner = "decors";
-            repo = "fish-colored-man";
-            rev = "1ad8fff696d48c8bf173aa98f9dff39d7916de0e";
-            # How to get:
-            # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/decors/fish-colored-man --quiet --rev 1ad8fff696d48c8bf173aa98f9dff39d7916de0e | jq -r '.sha256')"
-            sha256 = "sha256-uoZ4eSFbZlsRfISIkJQp24qPUNqxeD0JbRb/gVdRYlA=";
-          };
+          inherit (pkgs.fishPlugins.colored-man-pages) src;
         }
         # Disabled due to https://github.com/franciscolourenco/done/issues/94
         # {
@@ -102,42 +87,45 @@
         #   inherit (pkgs.fishPlugins.done) src;
         # }
         {
+          name = "fifc";
+          inherit (pkgs.fishPlugins.fifc) src;
+        }
+        {
           name = "forgit";
           inherit (pkgs.fishPlugins.forgit) src;
         }
-        # Needs fisher, not working ATM
-        # {
-        #   name = "fish-ai";
-        #   src = pkgs.fetchFromGitHub {
-        #     owner = "Realiserad";
-        #     repo = "fish-ai";
-        #     rev = "v1.0.0";
-        #     # How to get:
-        #     # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/Realiserad/fish-ai --quiet --rev v1.0.0 | jq -r '.sha256')"
-        #     sha256 = "sha256-OnKkANNR51G34edj2HbohduaFARk6ud15N3+ULYs7s4=";
-        #   };
-        # }
         {
-          name = "refresh-prompt-on-cmd";
+          name = "grc";
+          inherit (pkgs.fishPlugins.forgit) src;
+        }
+        # Needs fisher, not working ATM
+        {
+          name = "fish-ai";
           src = pkgs.fetchFromGitHub {
-            owner = "infused-kim";
-            repo = "fish-refresh-prompt-on-cmd";
-            rev = "v1.0.0";
-            # How to get:
-            # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/infused-kim/fish-refresh-prompt-on-cmd --quiet --rev v1.0.0 | jq -r '.sha256')"
-            sha256 = "sha256-2+YV4yVU82c+4HKCrruJHT5w626M3D4qFLPGXaDE8zA=";
+            owner = "Realiserad";
+            repo = "fish-ai";
+            rev = "v2.9.3";
+            # How to get: Next build will show the correct hash
+            hash = "sha256-zySfn76xC9an6QcfaThgN1FErPeriNxKhJhO22K+2nY=";
           };
+        }
+        {
+          name = "puffer";
+          inherit (pkgs.fishPlugins.puffer) src;
         }
         {
           name = "sponge";
           src = pkgs.fetchFromGitHub {
             owner = "halostatue";
             repo = "sponge";
-            rev = "v1.2.0";
-            # How to get:
-            # nix-shell -p nix-prefetch-git jq --run "nix hash convert sha256:\$(nix-prefetch-git --url https://github.com/halostatue/sponge --quiet --rev v1.2.0 | jq -r '.sha256')"
+            tag = "v1.2.0";
+            # How to get: Next build will show the correct hash
             sha256 = "sha256-3Qpt4guoxh9Ag61WasjCYlxSI0W0XG8uWYBertPB+Ck=";
           };
+        }
+        {
+          name = "you-should-use";
+          inherit (pkgs.fishPlugins.fish-you-should-use) src;
         }
       ];
     };
