@@ -19,13 +19,6 @@
     sessionVariables.EDITOR = "micro";
     # sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/fish";
 
-    activation = {
-      installPnpmCompletions = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      mkdir -p /home/${username}/.local/share/fish/vendor_completions.d
-      rm -f /home/${username}/.local/share/fish/vendor_completions.d/pnpm.fish
-        ${pkgs.corepack}/bin/pnpm completion fish > /home/${username}/.local/share/fish/vendor_completions.d/pnpm.fish
-      '';
-    };
   };
   nix.settings.substituters = [
     "https://nix-community.cachix.org"
