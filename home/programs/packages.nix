@@ -102,6 +102,7 @@ php85custom = pkgs.php85.buildEnv {
       awscli2
       awsume
       epiphany
+      fish-lsp
       k9s
       kubecolor
       kubectx
