@@ -69,8 +69,8 @@ php85custom = pkgs.php85.buildEnv {
       ###### Programming languages ######
       python3
       nodejs_latest
+      pnpm
       deno
-      corepack
 
       # PHP toolchain
       php85custom.out
