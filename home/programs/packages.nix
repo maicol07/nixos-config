@@ -1,5 +1,5 @@
 { pkgs, lib, isWsl ? false, hostname ? "", ... }: let 
-php84custom = pkgs.php84.buildEnv {
+php85custom = pkgs.php85.buildEnv {
       extensions = { enabled, all }:
         enabled ++ (with all; [
           bcmath
@@ -7,7 +7,6 @@ php84custom = pkgs.php84.buildEnv {
           gd
           intl
           mbstring
-          opcache
           xdebug
           xsl
           yaml
@@ -74,8 +73,8 @@ php84custom = pkgs.php84.buildEnv {
       corepack
 
       # PHP toolchain
-      php84custom.out
-      php84custom.packages.composer
+      php85custom.out
+      php85custom.packages.composer
 
       # SQL
       mariadb.client
