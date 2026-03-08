@@ -8,7 +8,7 @@ function fish_right_prompt
 end
 
 # Enable custom Laravel venv
-if test -f artisan && test -f bin/activate.fish
+if test -f compose.yaml && test -f bin/activate.fish
     # Already checked for file existence, so this should be safe.
     # @fish-lsp-disable-next-line 1004
     source bin/activate.fish
