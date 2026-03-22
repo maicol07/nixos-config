@@ -34,6 +34,7 @@ php85custom = pkgs.php85.buildEnv {
       dos2unix
       dust
       duf
+      fresh-editor
       fx
       grc
       httpie
@@ -48,6 +49,9 @@ php85custom = pkgs.php85.buildEnv {
       wget
       zip
       xcp
+
+      ###### LSP for Fresh Editor ######
+      bash-language-server
     ];
 
     # Tools specific to the server host
@@ -89,6 +93,7 @@ php85custom = pkgs.php85.buildEnv {
 
       ###### Utilities ######
       asciinema
+      copilot-cli
       dive
       dtop
       gemini-cli
@@ -101,6 +106,7 @@ php85custom = pkgs.php85.buildEnv {
       ###### Other ######
       awscli2
       awsume
+      cruise
       epiphany
       fish-lsp
       k9s
