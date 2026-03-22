@@ -1,6 +1,7 @@
 { ... }: {
   imports = [
     ./packages.nix
+    ./node-wrappers.nix
     ./git.nix
     ./micro.nix
   ];
