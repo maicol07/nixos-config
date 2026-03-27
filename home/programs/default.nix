@@ -1,10 +1,11 @@
-{ ... }: {
-  imports = [
-    ./packages.nix
-    ./node-wrappers.nix
-    ./git.nix
-    ./micro.nix
-  ];
+{ hostname, ... }: {
+  imports =
+    [
+      ./packages.nix
+      ./git.nix
+      ./micro.nix
+    ]
+    ++ (if hostname != "maicol07-server" then [ ./node-wrappers.nix ] else []);
   programs = {
     bat.enable = true;
     bottom.enable = true;
