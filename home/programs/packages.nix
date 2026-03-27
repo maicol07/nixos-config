@@ -82,8 +82,8 @@ php85custom = pkgs.php85.buildEnv {
 
       # SQL
       mariadb.client
+      mycli
 
-      
       ###### Formatters and linters ######
       alejandra # nix
       deadnix # nix
