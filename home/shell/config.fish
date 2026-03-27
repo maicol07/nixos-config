@@ -7,6 +7,19 @@ function fish_right_prompt
     rpoc_time
 end
 
+# Enable custom Laravel venv
+if test -f compose.yaml && test -f bin/activate.fish
+    # Already checked for file existence, so this should be safe.
+    # @fish-lsp-disable-next-line 1004
+    source bin/activate.fish
+end
+
+# Disable venv when not in a Laravel project
+# Check if current path is inside $VIRTUAL_ENV
+# if test -n "$VIRTUAL_ENV" && not string match -q "$PWD" "$VIRTUAL_ENV"
+#     deactivate
+# end
+
 set sponge_purge_only_on_exit true
 
 # If kubectl is installed
