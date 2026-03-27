@@ -49,6 +49,7 @@ php85custom = pkgs.php85.buildEnv {
       wget
       zip
       xcp
+      epiphany
 
       ###### LSP for Fresh Editor ######
       bash-language-server
@@ -107,7 +108,6 @@ php85custom = pkgs.php85.buildEnv {
       awscli2
       awsume
       cruise
-      epiphany
       k9s
       kubecolor
       kubectx
