@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: let
+{ pkgs, lib, ... }: let
   wrapperCommands = [ "node" "npm" "pnpm" "yarn" "npx" ];
 
   mkNodeWrapperScript = targetCmd:
@@ -85,5 +85,4 @@
   '';
 in {
   home.packages = [ nodeWrappersPackage ];
-  home.sessionPath = [ "${config.home.profileDirectory}/bin/node-wrappers" ];
 }
