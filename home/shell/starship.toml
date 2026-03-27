@@ -67,7 +67,7 @@ conflicted = "="
 ahead =	"⇡${count}"
 behind = "⇣${count}"
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-up_to_date = " 󰄸 "
+up_to_date = " ✓ "
 untracked = "?${count}"
 stashed = ""
 modified = "!${count}"
@@ -132,7 +132,6 @@ symbol = " "
 symbol = " "
 
 [os]
-disabled = false
 format = "[$symbol$version]($style)"
 
 [os.symbols]
@@ -220,7 +219,7 @@ disabled = false
 symbol = " "
 
 [time]
-format = '🕙 [$time]($style) '
+format = ' [$time]($style) '
 disabled = false
 
 [zig]
@@ -228,37 +227,3 @@ symbol = " "
 
 [gradle]
 symbol = " "
-
-# Custom module that runs the refresh-prompt-on-cmd time command which shows
-# the time when refreshing and `at --:--:--` when not refreshing.
-[custom.rpoc_time]
-style = "normal"
-when = true
-format = '[$output]($style)'
-# Whenever a custom command is run, starship executes the command in a new
-# shell. If you have a lot of plugins and functions, this can significantly
-# impact how long the module takes to run (and therefore delay the execution
-# of the next command).
-#
-# Using `fish -N` causes fish to not load any config files, but then we need
-# to manually load _refresh_prompt_on_cmd.fish file to make the `rpoc_time`
-# command available in that shell.
-#
-# Ensure the path matches the path to the script on your system or the output
-# will be empty.
-#
-# You can test it with `starship module custom.rpoc_time`.
-shell = ["fish", "-N"]
-command = """
-    source ~/.config/fish/conf.d/_refresh_prompt_on_cmd.fish && rpoc_time
-"""
-
-[custom.rpoc_debug]
-disabled = true
-style = "normal"
-when = true
-format = '[$output]($style)'
-shell = ["fish", "-N"]
-command = """
-    echo "rpoc_is_refreshing: $rpoc_is_refreshing "
-"""
