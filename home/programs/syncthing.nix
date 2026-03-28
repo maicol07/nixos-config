@@ -33,10 +33,12 @@ in {
         # Disable telemetry prompt in headless/user-service setups.
         urAccepted = -1;
 
-        # Work around a Syncthing v2 QUIC/TLS panic observed on this setup.
-        # Keeping only TCP listener avoids QUIC handshake crashes.
+        # Disable QUIC completely to avoid crashes on this setup.
+        # Use only TCP for both listening and dialing.
         listenAddresses = [ "tcp://0.0.0.0:22000" ];
+        quicEnabled = false;
       };
+
 
       devices = lib.optionalAttrs hasDeviceIds {
         ${otherHost} = {
