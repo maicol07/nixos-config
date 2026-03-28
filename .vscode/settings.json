@@ -1,5 +1,7 @@
 {
     "chat.tools.terminal.autoApprove": {
-        "nix": true
+        "nix": true,
+        "systemctl": true,
+        "journalctl": true
     }
 }
