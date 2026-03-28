@@ -58,6 +58,16 @@ in {
     };
   };
 
+  home.activation.syncthingStignore = lib.mkIf isSyncHost (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p "$HOME/Projects"
+    cat > "$HOME/Projects/.stignore" <<'EOF'
+**/node_modules
+**/node_modules/**
+**/vendor
+**/vendor/**
+EOF
+  '');
+
   warnings = lib.optional (isSyncHost && !hasDeviceIds) ''
     Syncthing is enabled, but device IDs are not configured in home/programs/syncthing.nix.
     Set deviceIds.maicol07-pc and deviceIds.maicol07-galaxy to sync ~/Projects.
