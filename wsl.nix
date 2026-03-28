@@ -1,5 +1,6 @@
 {
   username,
+  pkgs,
   lib,
   config,
   ...
@@ -17,13 +18,25 @@
     wslConf.automount.ldconfig = true;
   };
   
-  hardware = lib.mkIf (config.networking.hostName == "maicol07-pc") {
-    nvidia.open = true;
-    nvidia-container-toolkit = {
-      enable = true;
-      mount-nvidia-executables = false;
-    };
-  };
+  hardware = lib.mkMerge [
+    (lib.mkIf (config.networking.hostName == "maicol07-pc") {
+      nvidia.open = true;
+      nvidia-container-toolkit = {
+        enable = true;
+        mount-nvidia-executables = false;
+      };
+    })
+    (lib.mkIf (config.networking.hostName == "maicol07-galaxy") {
+      graphics = {
+        enable = true;
+        extraPackages = with pkgs; [
+          intel-media-driver
+          intel-compute-runtime
+          vpl-gpu-rt
+        ];
+      };
+    })
+  ];
   services.xserver.videoDrivers = lib.mkMerge [
     (lib.mkIf (config.networking.hostName == "maicol07-pc") [ "nvidia" ])
     (lib.mkIf (config.networking.hostName == "maicol07-galaxy") [ "intel" ])
