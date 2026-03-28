@@ -44,4 +44,11 @@
   
   programs.nix-ld.enable = true;
   environment.variables.NIX_LD_LIBRARY_PATH = lib.mkForce "/run/current-system/sw/share/nix-ld/lib:/usr/lib/wsl/lib";
+
+  # Raise inotify limits for large trees (e.g. Syncthing on ~/Projects).
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_watches" = 1048576;
+    "fs.inotify.max_user_instances" = 8192;
+    "fs.inotify.max_queued_events" = 32768;
+  };
 }
