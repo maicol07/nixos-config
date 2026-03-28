@@ -16,7 +16,7 @@
   # Fill these values with the real IDs shown in each host's Syncthing UI.
   deviceIds = {
     maicol07-pc = "ODHC7VB-IT3PQO6-ZSO72F2-UXMZSAB-NDITHSZ-MS7HKIN-BM5DR24-PQS25QK";
-    maicol07-galaxy = "";
+    maicol07-galaxy = "AZIYINP-TDJRTZW-QDCVEAF-RHCZIPO-25YA46Z-QQBUNTN-2DST3FS-CTNINQN";
   };
 
   localDeviceId = deviceIds.${hostname} or "";
