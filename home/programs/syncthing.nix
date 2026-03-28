@@ -61,6 +61,14 @@ in {
   home.activation.syncthingStignore = lib.mkIf isSyncHost (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p "$HOME/Projects"
     cat > "$HOME/Projects/.stignore" <<'EOF'
+**/.cache
+**/.cache/**
+**/.data
+**/.data/**
+**/.pnpm-store
+**/.pnpm-store/**
+**/.wireit
+**/.wireit/**
 **/node_modules
 **/node_modules/**
 **/vendor
