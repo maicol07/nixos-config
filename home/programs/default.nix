@@ -2,6 +2,7 @@
   imports =
     [
       ./packages.nix
+      ./syncthing.nix
       ./git.nix
       ./micro.nix
     ]
