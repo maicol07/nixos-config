@@ -32,6 +32,10 @@ in {
       options = {
         # Disable telemetry prompt in headless/user-service setups.
         urAccepted = -1;
+
+        # Work around a Syncthing v2 QUIC/TLS panic observed on this setup.
+        # Keeping only TCP listener avoids QUIC handshake crashes.
+        listenAddresses = [ "tcp://0.0.0.0:22000" ];
       };
 
       devices = lib.optionalAttrs hasDeviceIds {
