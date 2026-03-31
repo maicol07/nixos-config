@@ -65,6 +65,7 @@ php85custom = pkgs.php85.buildEnv {
       dmidecode # DMI table decoder
       lsscsi # List SCSI devices (including SATA, NVMe, etc.)
       lshw-gui # GUI for lshw
+      smartmontools
       xorg.xauth
       xclip
     ];
