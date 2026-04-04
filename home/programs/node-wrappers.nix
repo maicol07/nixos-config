@@ -26,19 +26,40 @@
           printf '%s' "$filtered_path"
       }
 
-      if [ -f .env ]; then
+      find_project_root() {
+          local dir
+          dir="$(pwd)"
+          while [ "$dir" != "/" ]; do
+              if [ -f "$dir/.env" ] || [ -f "$dir/Dockerfile" ] || [ -f "$dir/bin/activate" ]; then
+                  printf '%s' "$dir"
+                  return 0
+              fi
+              dir="$(dirname "$dir")"
+          done
+          printf '%s' "$(pwd)"
+      }
+
+      PROJECT_ROOT="$(find_project_root)"
+      INVOKE_DIR="$(pwd)"
+      cd "$PROJECT_ROOT"
+
+      if [ -f "$PROJECT_ROOT/.env" ]; then
           set -a
-          source .env
+          source "$PROJECT_ROOT/.env"
           set +a
       fi
 
-      LOCAL_ROOT="''${LOCAL_ROOT:-$(pwd)}"
+      LOCAL_ROOT="''${LOCAL_ROOT:-$PROJECT_ROOT}"
       CONTAINER_ROOT="''${CONTAINER_ROOT:-/var/www/html}"
       SERVICE_NAME="''${SERVICE_NAME:-app}"
-      VENV_PATH="''${VENV_PATH:-bin/activate}"
+      _venv_default="$PROJECT_ROOT/bin/activate"
+      VENV_PATH="''${VENV_PATH:-$_venv_default}"
+      CONTAINER_WORKDIR="''${INVOKE_DIR//$LOCAL_ROOT/$CONTAINER_ROOT}"
+      if [[ "$VENV_PATH" != /* ]]; then
+          VENV_PATH="$PROJECT_ROOT/$VENV_PATH"
+      fi
 
       if [ -f "$VENV_PATH" ]; then
-          echo "[Info] Activating virtual environment at $VENV_PATH..." >&2
           source "$VENV_PATH"
 
             if alias "$TARGET_CMD" >/dev/null 2>&1; then
@@ -47,19 +68,19 @@
               alias_body="''${alias_body#\'}"
               alias_body="''${alias_body%\'}"
 
-                if [ -n "$LOCAL_ROOT" ] && [[ "$alias_body" == *"--workdir "*"$LOCAL_ROOT"* ]]; then
-                  local_root_escaped="$(printf '%s' "$LOCAL_ROOT" | sed 's/[.[\*^$()+?{|]/\\&/g')"
-                  alias_body="$(printf '%s' "$alias_body" | sed "s#--workdir \([^ ]*\)$local_root_escaped#--workdir \\1#g")"
-                fi
+              alias_body="$(printf '%s' "$alias_body" | sed 's/-it\b/-i/g; s/-ti\b/-i/g')"
+              alias_body="$(printf '%s' "$alias_body" | sed "s#--workdir [^ ]*#--workdir $CONTAINER_WORKDIR#g")"
 
-              eval "$alias_body \"$@\""
+              translated_args=()
+              for arg in "$@"; do
+                  translated_args+=("''${arg//$LOCAL_ROOT/$CONTAINER_ROOT}")
+              done
+              eval "$alias_body $(printf '%q ' "''${translated_args[@]}")"
             else
               echo "[Error] Alias '$TARGET_CMD' non trovato dopo l'attivazione di $VENV_PATH." >&2
               exit 1
             fi
       else
-          echo "[Info] Fallback to Docker Compose..." >&2
-
           translated_args=()
           for arg in "$@"; do
               translated_args+=("''${arg//$LOCAL_ROOT/$CONTAINER_ROOT}")
@@ -68,11 +89,10 @@
           if [ "$(docker compose ps -q "$SERVICE_NAME" 2>/dev/null)" ] && [ "$(docker ps -q -f id=$(docker compose ps -q "$SERVICE_NAME"))" ]; then
               :
           else
-              echo "[Info] Starting Docker Compose services..." >&2
               docker compose up -d >&2
           fi
 
-          docker compose exec -T "$SERVICE_NAME" "$TARGET_CMD" "''${translated_args[@]}"
+          docker compose exec -i -T --workdir="$CONTAINER_WORKDIR" "$SERVICE_NAME" "$TARGET_CMD" "''${translated_args[@]}"
       fi
     '';
 
