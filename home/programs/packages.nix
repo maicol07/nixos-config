@@ -116,7 +116,7 @@ php85custom = pkgs.php85.buildEnv {
       prek
       supabase-cli
       terraform
-    ] ++ lib.optionals isWsl [ pkgs.wslu ];
+    ];
   };
 in {
   home.packages =
