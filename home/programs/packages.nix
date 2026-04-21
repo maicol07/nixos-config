@@ -102,6 +102,7 @@ php85custom = pkgs.php85.buildEnv {
       geminicommit
       git-crypt
       git-interactive-rebase-tool
+      nemo
       nixd
       wakatime-cli
 
