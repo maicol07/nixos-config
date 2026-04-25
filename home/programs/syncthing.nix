@@ -73,6 +73,8 @@ in {
 **/node_modules/**
 **/vendor
 **/vendor/**
+**/public/wp
+**/public/wp/**
 EOF
   '');
 
