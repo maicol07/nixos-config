@@ -1,26 +1,29 @@
 {
   description = "NixOS configuration";
 
-inputs = {
-  # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-  nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs = {
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-  home-manager.url = "github:nix-community/home-manager/master";
-  home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  nur.url = "github:nix-community/NUR";
+    nur.url = "github:nix-community/NUR";
 
-  nixos-wsl.url = "github:nix-community/NixOS-WSL";
-  nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
-  nix-index-database.url = "github:Mic92/nix-index-database";
-  nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-  lanzaboote = {
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.3";
 
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  
+    lfk.url = "github:janosmiko/lfk";
+
   };
 
   outputs = inputs:
@@ -63,7 +66,7 @@ inputs = {
       };
 
       argDefaults = {
-        inherit inputs self nix-index-database;
+        inherit inputs self nix-index-database lfk;
         channels = {
           inherit nixpkgs /* nixpkgs-unstable */;
         };
