@@ -103,6 +103,7 @@ php85custom = pkgs.php85.buildEnv {
       geminicommit
       git-crypt
       git-interactive-rebase-tool
+      nemo
       nixd
       wakatime-cli
 
@@ -116,7 +117,7 @@ php85custom = pkgs.php85.buildEnv {
       prek
       supabase-cli
       terraform
-    ] ++ lib.optionals isWsl [ pkgs.wslu ];
+    ];
   };
 in {
   home.packages =
