@@ -6,22 +6,18 @@
 
   isSyncHost = builtins.elem hostname syncHosts;
 
-  otherHost =
-    if hostname == "maicol07-pc" then
-      "maicol07-galaxy"
-    else
-      "maicol07-pc";
-
   # Device IDs are required by Syncthing to pair peers.
   # Fill these values with the real IDs shown in each host's Syncthing UI.
   deviceIds = {
     maicol07-pc = "ODHC7VB-IT3PQO6-ZSO72F2-UXMZSAB-NDITHSZ-MS7HKIN-BM5DR24-PQS25QK";
     maicol07-galaxy = "AZIYINP-TDJRTZW-QDCVEAF-RHCZIPO-25YA46Z-QQBUNTN-2DST3FS-CTNINQN";
+    MAICOL-GALAXY-UBUNTU = "B7UOUBI-SHAJFNG-K6PWY2U-YD6I3KC-H3ZR64A-7ICYHOQ-OG4T3RJ-ERHBOAY";
   };
 
+  otherHosts = builtins.filter (name: name != hostname) (builtins.attrNames deviceIds);
+
   localDeviceId = deviceIds.${hostname} or "";
-  remoteDeviceId = deviceIds.${otherHost} or "";
-  hasDeviceIds = localDeviceId != "" && remoteDeviceId != "";
+  hasDeviceIds = localDeviceId != "";
 in {
   services.syncthing = lib.mkIf isSyncHost {
     enable = true;
@@ -40,19 +36,23 @@ in {
       };
 
 
-      devices = lib.optionalAttrs hasDeviceIds {
-        ${otherHost} = {
-          id = remoteDeviceId;
-          autoAcceptFolders = true;
-        };
-      };
+      devices = lib.optionalAttrs hasDeviceIds (lib.genAttrs otherHosts (name: {
+        id = deviceIds.${name};
+        autoAcceptFolders = true;
+      }));
 
       folders = lib.optionalAttrs hasDeviceIds {
         projects = {
           id = "projects";
           label = "Projects";
           path = "~/Projects";
-          devices = [ otherHost ];
+          devices = otherHosts;
+        };
+        studioProjects = {
+          id = "studio-projects";
+          label = "Studio Projects";
+          path = "/mnt/c/Users/Maicol/StudioProjects";
+          devices = otherHosts;
         };
       };
     };
@@ -73,11 +73,19 @@ in {
 **/node_modules/**
 **/vendor
 **/vendor/**
+**/public/wp
+**/public/wp/**
+EOF
+    cat > "/mnt/c/Users/Maicol/StudioProjects/.stignore" <<'EOF'
+**/.kotlin
+**/.kotlin/**
+**/build
+**/build/**
 EOF
   '');
 
   warnings = lib.optional (isSyncHost && !hasDeviceIds) ''
-    Syncthing is enabled, but device IDs are not configured in home/programs/syncthing.nix.
-    Set deviceIds.maicol07-pc and deviceIds.maicol07-galaxy to sync ~/Projects.
+    Syncthing is enabled, but the current host device ID is not configured in home/programs/syncthing.nix.
+    Set deviceIds in the configuration to sync.
   '';
 }
