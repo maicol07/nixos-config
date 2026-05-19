@@ -95,13 +95,13 @@ php85custom = pkgs.php85.buildEnv {
 
       ###### Utilities ######
       asciinema
-      copilot-cli
       dive
       dtop
       gemini-cli
       geminicommit
       git-crypt
       git-interactive-rebase-tool
+      github-copilot-cli
       nemo
       nixd
       wakatime-cli
