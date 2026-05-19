@@ -32,7 +32,6 @@ in {
         # Disable QUIC completely to avoid crashes on this setup.
         # Use only TCP for both listening and dialing.
         listenAddresses = [ "tcp://0.0.0.0:22000" ];
-        quicEnabled = false;
       };
 
 
