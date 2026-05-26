@@ -126,6 +126,7 @@
           isWsl = true;
           modules = [
             ./common.nix
+            ./nixos.nix
             nixos-wsl.nixosModules.wsl
             ./wsl.nix
           ];
@@ -137,6 +138,7 @@
           isWsl = true;
           modules = [
             ./common.nix
+            ./nixos.nix
             nixos-wsl.nixosModules.wsl
             ./wsl.nix
           ];
@@ -148,6 +150,7 @@
           isWsl = false;
           modules = [
             ./common.nix
+            ./nixos.nix
             lanzaboote.nixosModules.lanzaboote
             ./server.nix
           ];

@@ -7,4 +7,7 @@
 
   # If you want to manage non-Nix packages via Homebrew in the future
   # homebrew.enable = true;
+
+  # This value determines the Nix-Darwin release from which defaults are taken
+  system.stateVersion = 5;
 }
