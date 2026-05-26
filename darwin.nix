@@ -1,4 +1,9 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, username, ... }: {
+  # Define the user's home directory on macOS
+  users.users.${username} = {
+    home = "/Users/${username}";
+  };
+
   # Enable the Nix daemon (mandatory on multi-user/macOS installations)
   services.nix-daemon.enable = true;
 
