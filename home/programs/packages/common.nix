@@ -1,34 +1,32 @@
-{ pkgs, ... }:
-
-with pkgs; [
+{ pkgs, ... }: [
   ###### System ######
-  coreutils
-  curl
-  findutils
-  killall
-  htop
+  pkgs.coreutils
+  pkgs.curl
+  pkgs.findutils
+  pkgs.killall
+  pkgs.htop
 
   ###### Utilities ######
-  croc
-  dos2unix
-  dust
-  duf
-  fresh-editor
-  fx
-  grc
-  httpie
-  jq
-  lsof
-  nix-inspect
-  procs
-  sd
-  tlrc
-  tree
-  unzip
-  wget
-  zip
-  xcp
+  pkgs.croc
+  pkgs.dos2unix
+  pkgs.dust
+  pkgs.duf
+  pkgs.fresh-editor
+  pkgs.fx
+  pkgs.grc
+  pkgs.httpie
+  pkgs.jq
+  pkgs.lsof
+  pkgs.nix-inspect
+  pkgs.procs
+  pkgs.sd
+  pkgs.tlrc
+  pkgs.tree
+  pkgs.unzip
+  pkgs.wget
+  pkgs.zip
+  pkgs.xcp
 
   ###### LSP for Fresh Editor ######
-  bash-language-server
+  pkgs.bash-language-server
 ]

@@ -1,8 +1,6 @@
-{ pkgs, lib, hostname ? "", ... }:
+{ pkgs, lib, isServer ? false, isPersonal ? false, isDarwin ? false, ... }:
 let
-  isServer = hostname == "maicol07-server";
-  isPersonal = hostname == "maicol07-pc" || hostname == "maicol07-galaxy" || hostname == "MAICOL-MAC";
-  isLinuxPersonal = isPersonal && hostname != "MAICOL-MAC";
+  isLinuxPersonal = isPersonal && !isDarwin;
 in
 {
   home.packages =

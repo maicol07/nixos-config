@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-with pkgs; [
-  epiphany
-  nemo
+{ pkgs, ... }: [
+  pkgs.epiphany
+  pkgs.nemo
 ]
