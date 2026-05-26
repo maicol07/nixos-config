@@ -1,4 +1,17 @@
-{ pkgs, lib, isWsl ? false, ...}: {
+{ pkgs, lib, isWsl ? false, ...}:
+let
+  fullStarshipSettings = pkgs.lib.importTOML ./starship.toml;
+  minimalStarshipSettings = fullStarshipSettings // {
+    right_format = "";
+    cmd_duration = (fullStarshipSettings.cmd_duration or {}) // {
+      disabled = false;
+      min_time = 0;
+    };
+    directory = builtins.removeAttrs (fullStarshipSettings.directory or {}) [ "truncate_to_repo" ];
+    os = (fullStarshipSettings.os or {}) // { disabled = true; };
+    python = (fullStarshipSettings.python or {}) // { symbol = " "; };
+  };
+in {
   programs = {
     fzf = {
       enable = true;
@@ -96,18 +109,7 @@
         }
         {
           name = "grc";
-          inherit (pkgs.fishPlugins.forgit) src;
-        }
-        # Needs fisher, not working ATM
-        {
-          name = "fish-ai";
-          src = pkgs.fetchFromGitHub {
-            owner = "Realiserad";
-            repo = "fish-ai";
-            rev = "v2.9.3";
-            # How to get: Next build will show the correct hash
-            hash = "sha256-zySfn76xC9an6QcfaThgN1FErPeriNxKhJhO22K+2nY=";
-          };
+          inherit (pkgs.fishPlugins.grc) src;
         }
         {
           name = "puffer";
@@ -131,8 +133,7 @@
     };
   };
 
-# Needs fisher, not working ATM
   home.file = {
-    ".config/starship-minimal.toml".source = ./starship-minimal.toml;
+    ".config/starship-minimal.toml".source = (pkgs.formats.toml {}).generate "starship-minimal" minimalStarshipSettings;
   };
 }
