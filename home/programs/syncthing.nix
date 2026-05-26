@@ -11,7 +11,6 @@
   deviceIds = {
     maicol07-pc = "ODHC7VB-IT3PQO6-ZSO72F2-UXMZSAB-NDITHSZ-MS7HKIN-BM5DR24-PQS25QK";
     maicol07-galaxy = "WUFHAFW-IWVK633-SDQRY26-APRYUDU-TOHEGZH-ZIGLXKX-HC5HAXB-YXEIYAR";
-    MAICOL-GALAXY-UBUNTU = "B7UOUBI-SHAJFNG-K6PWY2U-YD6I3KC-H3ZR64A-7ICYHOQ-OG4T3RJ-ERHBOAY";
   };
 
   otherHosts = builtins.filter (name: name != hostname) (builtins.attrNames deviceIds);
