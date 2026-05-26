@@ -1,8 +1,8 @@
 {
   username,
+  hostname,
   pkgs,
   lib,
-  config,
   ...
 }: {
   wsl = {
@@ -19,14 +19,14 @@
   };
   
   hardware = lib.mkMerge [
-    (lib.mkIf (config.networking.hostName == "maicol07-pc") {
+    (lib.mkIf (hostname == "maicol07-pc") {
       nvidia.open = true;
       nvidia-container-toolkit = {
         enable = true;
         mount-nvidia-executables = false;
       };
     })
-    (lib.mkIf (config.networking.hostName == "maicol07-galaxy") {
+    (lib.mkIf (hostname == "maicol07-galaxy") {
       graphics = {
         enable = true;
         extraPackages = with pkgs; [
@@ -38,8 +38,8 @@
     })
   ];
   services.xserver.videoDrivers = lib.mkMerge [
-    (lib.mkIf (config.networking.hostName == "maicol07-pc") [ "nvidia" ])
-    (lib.mkIf (config.networking.hostName == "maicol07-galaxy") [ "intel" ])
+    (lib.mkIf (hostname == "maicol07-pc") [ "nvidia" ])
+    (lib.mkIf (hostname == "maicol07-galaxy") [ "intel" ])
   ];
   
   programs.nix-ld.enable = true;
