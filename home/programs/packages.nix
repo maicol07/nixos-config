@@ -18,7 +18,7 @@ php85custom = pkgs.php85.buildEnv {
     };
 
   isServer = hostname == "maicol07-server";
-  isPersonal = hostname == "maicol07-pc" || hostname == "maicol07-galaxy";
+  isPersonal = hostname == "maicol07-pc" || hostname == "maicol07-galaxy" || hostname == "MAICOL-MAC";
 
   groups = {
     common = with pkgs; [

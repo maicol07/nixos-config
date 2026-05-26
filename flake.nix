@@ -24,6 +24,9 @@
   
     lfk.url = "github:janosmiko/lfk";
 
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
   outputs = inputs:
@@ -92,6 +95,27 @@
             ]
             ++ modules;
         };
+
+      mkDarwinConfiguration = {
+        system ? "aarch64-darwin", # Use "x86_64-darwin" if you have an Intel Mac
+        hostname,
+        username,
+        isWsl ? false,
+        args ? {},
+        modules,
+      }: let
+        specialArgs = argDefaults // { inherit hostname username isWsl; } // args;
+      in
+        nix-darwin.lib.darwinSystem {
+          inherit system specialArgs;
+          pkgs = nixpkgsWithOverlays system;
+          modules =
+            [
+              (configurationDefaults specialArgs)
+              home-manager.darwinModules.home-manager
+            ]
+            ++ modules;
+        };
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
@@ -126,6 +150,17 @@
             ./common.nix
             lanzaboote.nixosModules.lanzaboote
             ./server.nix
+          ];
+        };
+      };
+
+      darwinConfigurations = {
+        "MAICOL-MAC" = mkDarwinConfiguration {
+          hostname = "MAICOL-MAC";
+          username = "maicol07"; # Ensure this matches your macOS short username
+          modules = [
+            ./common.nix
+            ./darwin.nix
           ];
         };
       };
