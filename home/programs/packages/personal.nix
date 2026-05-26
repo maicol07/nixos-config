@@ -16,49 +16,48 @@
       xdebug.mode=debug
     '';
   };
-in
-with pkgs; [
+in [
   ###### Programming languages ######
-  python3
-  nodejs_latest
-  pnpm
-  deno
+  pkgs.python3
+  pkgs.nodejs_latest
+  pkgs.pnpm
+  pkgs.deno
 
   # PHP toolchain
   php85custom.out
   php85custom.packages.composer
 
   # SQL
-  mariadb.client
-  mycli
+  pkgs.mariadb.client
+  pkgs.mycli
 
   ###### Formatters and linters ######
-  alejandra
-  deadnix
-  shellcheck
-  shfmt
-  statix
+  pkgs.alejandra
+  pkgs.deadnix
+  pkgs.shellcheck
+  pkgs.shfmt
+  pkgs.statix
 
   ###### Utilities ######
-  asciinema
-  dive
-  dtop
-  gemini-cli
-  geminicommit
-  git-crypt
-  git-interactive-rebase-tool
-  github-copilot-cli
-  nixd
-  wakatime-cli
+  pkgs.asciinema
+  pkgs.dive
+  pkgs.dtop
+  pkgs.gemini-cli
+  pkgs.geminicommit
+  pkgs.git-crypt
+  pkgs.git-interactive-rebase-tool
+  pkgs.github-copilot-cli
+  pkgs.nixd
+  pkgs.wakatime-cli
 
   ###### Other ######
-  awscli2
-  awsume
-  cruise
-  k9s
-  kubecolor
-  kubectx
-  prek
-  supabase-cli
-  terraform
+  pkgs.awscli2
+  pkgs.awsume
+  pkgs.cruise
+  pkgs.k9s
+  pkgs.kubecolor
+  pkgs.kubectx
+  pkgs.prek
+  pkgs.supabase-cli
+  pkgs.terraform
 ]
