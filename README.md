@@ -48,6 +48,19 @@ sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-galaxy
 sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-server
 ```
 
+### macOS (nix-darwin)
+For the first installation on a clean Mac, install Lix using the official installer. See https://lix.systems/install/
+Then clone the repository and run the initial bootstrap:
+```bash
+git clone git@github.com:maicol07/nixos-config.git $HOME/.config/nixos
+cd $HOME/.config/nixos
+nix run nix-darwin -- switch --flake $HOME/.config/nixos#MAICOL-MAC
+```
+After the first run, you can deploy using:
+```bash
+darwin-rebuild switch --flake $HOME/.config/nixos#MAICOL-MAC
+```
+
 ## Project Layout
 
 In order to keep the template as approachable as possible for new NixOS users,
