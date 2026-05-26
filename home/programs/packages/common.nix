@@ -28,7 +28,6 @@ with pkgs; [
   wget
   zip
   xcp
-  epiphany
 
   ###### LSP for Fresh Editor ######
   bash-language-server
