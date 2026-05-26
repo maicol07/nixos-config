@@ -52,6 +52,35 @@
       LOCAL_ROOT="''${LOCAL_ROOT:-$PROJECT_ROOT}"
       CONTAINER_ROOT="''${CONTAINER_ROOT:-/var/www/html}"
       SERVICE_NAME="''${SERVICE_NAME:-app}"
+
+      SKIP_DOCKER=0
+      for arg in "$@"; do
+          # Se l'argomento è un percorso assoluto esistente e NON è in LOCAL_ROOT
+          # (es. tools dell'IDE come PhpStorm o language servers in /mnt/c/...),
+          # evitiamo di usare Docker poichè il file non sarebbe accessibile.
+      if [[ "$arg" == /* ]] && { [ -e "$arg" ] || [ -L "$arg" ]; } && [[ "$arg" != "$LOCAL_ROOT"* ]]; then
+              SKIP_DOCKER=1
+              break
+          fi
+      done
+
+      if [ "$SKIP_DOCKER" -eq 1 ]; then
+          cd "$INVOKE_DIR"
+
+      # Estendiamo il PATH perché spesso gli IDE lanciano i processi con un ambiente
+      # minimo, rendendo impossibile trovare i binari di sistema su NixOS.
+      EXTENDED_PATH="$PATH:/run/current-system/sw/bin:/etc/profiles/per-user/$(whoami)/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin"
+
+          while IFS= read -r cmd_path; do
+              if [ "$(readlink -f "$cmd_path")" != "$(readlink -f "''${BASH_SOURCE[0]}")" ]; then
+                  exec "$cmd_path" "$@"
+              fi
+      done < <(PATH="$EXTENDED_PATH" type -a -P "$TARGET_CMD" 2>/dev/null)
+
+          echo "[Error] Fallback: unable to find original '$TARGET_CMD'." >&2
+          exit 1
+      fi
+
       _venv_default="$PROJECT_ROOT/bin/activate"
       VENV_PATH="''${VENV_PATH:-$_venv_default}"
       CONTAINER_WORKDIR="''${INVOKE_DIR//$LOCAL_ROOT/$CONTAINER_ROOT}"
