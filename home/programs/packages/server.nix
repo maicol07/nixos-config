@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 with pkgs; [
+  epiphany
   # KDE
   kdePackages.discover
   kdePackages.sddm-kcm
