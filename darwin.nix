@@ -9,9 +9,6 @@
     home.homeDirectory = pkgs.lib.mkForce "/Users/${username}";
   };
 
-  # Enable the Nix daemon (mandatory on multi-user/macOS installations)
-  services.nix-daemon.enable = true;
-
   # Enable basic Zsh to allow the OS to hook Nix PATH variables
   programs.zsh.enable = true;
 
