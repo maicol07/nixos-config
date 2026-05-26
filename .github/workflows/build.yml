@@ -6,8 +6,6 @@ on:
       - master
       - feature/*
       - hotfix/*
-    tags:
-      - nixos-wsl-starter-*
   pull_request: {}
   workflow_call: {}
 
@@ -25,18 +23,8 @@ jobs:
         with:
           extra_nix_config: "access-tokens = github.com=${{ github.token }}"
 
-      - name: Build tarball
-        run: |
-          nix_bin=$(which nix)
-          sudo $nix_bin run .#nixosConfigurations.nixos.config.system.build.tarballBuilder
+      - name: Check flake evaluation
+        run: nix flake check -L
 
-      - name: Upload tarball
-        uses: actions/upload-artifact@v3
-        with:
-          name: nixos-wsl.tar.gz
-          path: nixos-wsl.tar.gz
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: nixos-wsl.tar.gz
+      - name: Build server config
+        run: nix build .#nixosConfigurations.maicol07-server.config.system.build.toplevel -L
