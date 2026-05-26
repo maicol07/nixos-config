@@ -1,14 +1,14 @@
-{ pkgs, ... }: [
-  pkgs.epiphany
+{ pkgs, ... }: with pkgs; [
+  epiphany
   # KDE
-  pkgs.kdePackages.discover
-  pkgs.kdePackages.sddm-kcm
+  kdePackages.discover
+  kdePackages.sddm-kcm
   # Non-KDE graphical packages
-  pkgs.hardinfo2
-  pkgs.dmidecode
-  pkgs.lsscsi
-  pkgs.lshw-gui
-  pkgs.smartmontools
-  pkgs.xorg.xauth
-  pkgs.xclip
+  hardinfo2
+  dmidecode
+  lsscsi
+  lshw-gui
+  smartmontools
+  xorg.xauth
+  xclip
 ]
