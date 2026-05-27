@@ -166,7 +166,7 @@
           username = "maicol07"; # Ensure this matches your macOS short username
           modules = [
             ./common.nix
-            ./darwin.nix
+            ./darwin
           ];
         };
       };
