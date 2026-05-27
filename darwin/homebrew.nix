@@ -7,7 +7,9 @@
       cleanup = "zap";
       upgrade = true;
     };
-    taps = [];
+    taps = [
+      "grishka/grishka"
+    ];
     brews = [];
     casks = [
       "1password"
@@ -15,8 +17,11 @@
       "chrome-remote-desktop-host"
       "iterm2"
       "jetbrains-toolbox"
+      "neardrop"
       "microsoft-edge"
       "parsec"
+      "passepartout"
+      "stats"
       "visual-studio-code"
     ];
     masApps = {
