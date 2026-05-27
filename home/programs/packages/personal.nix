@@ -53,11 +53,13 @@ in with pkgs; [
   ###### Other ######
   awscli2
   awsume
+] ++ lib.optionals (!pkgs.stdenv.isDarwin) [
   cruise
+] ++ (with pkgs; [
   k9s
   kubecolor
   kubectx
   prek
   supabase-cli
   terraform
-]
+])
