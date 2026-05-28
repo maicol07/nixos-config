@@ -3,6 +3,7 @@
   lib,
   username,
   nix-index-database,
+  isDarwin ? false,
   ...
 }: {
   imports = [
@@ -13,10 +14,13 @@
   home.stateVersion = "24.11";
 
   home = {
-    username = "${username}";
-    homeDirectory = "/home/${username}";
+    inherit username;
+    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
 
-    sessionVariables.EDITOR = "micro";
+    sessionVariables = {
+      EDITOR = "micro";
+      PNPM_HOME = if isDarwin then "$HOME/Library/pnpm" else "$HOME/.local/share/pnpm";
+    };
     # sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/fish";
 
   };
