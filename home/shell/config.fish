@@ -1,4 +1,4 @@
-fish_add_path $HOME/.config/composer/vendor/bin "/mnt/c/Users/Maicol/AppData/Local/Programs/Microsoft VS Code/bin" /mnt/c/Windows
+fish_add_path $PNPM_HOME $HOME/.config/composer/vendor/bin "/mnt/c/Users/Maicol/AppData/Local/Programs/Microsoft VS Code/bin" /mnt/c/Windows
 
 # X410
 export DISPLAY=localhost:0.0
