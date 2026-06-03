@@ -41,13 +41,13 @@ in with pkgs; [
   ###### Utilities ######
   asciinema
   antigravity-cli
+  claude-code
   dive
   dtop
   gemini-cli
   geminicommit
   git-crypt
   git-interactive-rebase-tool
-  github-copilot-cli
   nixd
   wakatime-cli
 
