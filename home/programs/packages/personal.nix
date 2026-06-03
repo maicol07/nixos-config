@@ -40,6 +40,7 @@ in with pkgs; [
 
   ###### Utilities ######
   asciinema
+  antigravity-cli
   dive
   dtop
   gemini-cli
