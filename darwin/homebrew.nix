@@ -10,15 +10,18 @@
     taps = [
       "grishka/grishka"
     ];
-    brews = [];
+    brews = [
+      "openjdk"
+      "xpipe"
+    ];
     casks = [
       "1password"
       "betterdisplay"
       "chrome-remote-desktop-host"
       "iterm2"
       "jetbrains-toolbox"
-      "neardrop"
       "microsoft-edge"
+      "neardrop"
       "parsec"
       "passepartout"
       "stats"
