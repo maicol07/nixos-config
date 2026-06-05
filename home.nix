@@ -3,6 +3,7 @@
   lib,
   username,
   nix-index-database,
+  isDarwin ? false,
   ...
 }: {
   imports = [
@@ -13,10 +14,13 @@
   home.stateVersion = "24.11";
 
   home = {
-    username = "${username}";
-    homeDirectory = "/home/${username}";
+    inherit username;
+    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
 
-    sessionVariables.EDITOR = "micro";
+    sessionVariables = {
+      EDITOR = "micro";
+      PNPM_HOME = if isDarwin then "$HOME/Library/pnpm" else "$HOME/.local/share/pnpm";
+    };
     # sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/fish";
 
   };
@@ -29,10 +33,6 @@
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
   ];
-  
-  # systemd.user.tmpfiles.rules = [
-  #   "L+ %h/.local/share/fish/vendor_completions.d/pnpm.fish - - - - ${pkgs.runCommandNoCC "pnpm-completion" {} "${lib.getExe pkgs.pnpm} completion fish >$out"}"
-  # ];
 
   programs = {
     home-manager.enable = true;

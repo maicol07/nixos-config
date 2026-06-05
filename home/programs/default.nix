@@ -1,4 +1,4 @@
-{ hostname, username, ... }: {
+{ hostname, username, pkgs, isServer ? false, ... }: {
   imports =
     [
       ./packages.nix
@@ -6,7 +6,7 @@
       ./git.nix
       ./micro.nix
     ]
-    ++ (if hostname != "maicol07-server" then [ ./node-wrappers.nix ] else []);
+    ++ (if !isServer then [ ./node-wrappers.nix ] else []);
   programs = {
     bat.enable = true;
     bottom.enable = true;
@@ -16,11 +16,11 @@
     gh.enable = true;
     lazygit.enable = true;
     less.enable = true;
-    nh = {
+      nh = {
       enable = true;
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = "/home/" + username + "/.config/nixos"; # sets NH_OS_FLAKE variable for you
+      flake = (if pkgs.stdenv.isDarwin then "/Users/" else "/home/") + username + "/.config/nixos"; # sets NH_OS_FLAKE variable for you
     };
     vivid = {
       enable = true;
