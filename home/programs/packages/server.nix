@@ -10,6 +10,6 @@
   lshw-gui
   parted
   smartmontools
-  xorg.xauth
+  xauth
   xclip
 ]
