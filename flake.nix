@@ -24,6 +24,9 @@
   
     lfk.url = "github:janosmiko/lfk";
 
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
   outputs = inputs:
@@ -80,7 +83,12 @@
         args ? {},
         modules,
       }: let
-        specialArgs = argDefaults // { inherit hostname username isWsl; } // args;
+        roles = {
+          isServer = hostname == "maicol07-server";
+          isPersonal = builtins.elem hostname [ "maicol07-pc" "maicol07-galaxy" ];
+          isDarwin = false;
+        };
+        specialArgs = argDefaults // { inherit hostname username isWsl; } // roles // args;
       in
         nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
@@ -92,31 +100,52 @@
             ]
             ++ modules;
         };
+
+      mkDarwinConfiguration = {
+        system ? "aarch64-darwin", # Use "x86_64-darwin" if you have an Intel Mac
+        hostname,
+        username,
+        isWsl ? false,
+        args ? {},
+        modules,
+      }: let
+        roles = {
+          isServer = false;
+          isPersonal = true;
+          isDarwin = true;
+        };
+        specialArgs = argDefaults // { inherit hostname username isWsl; } // roles // args;
+      in
+        nix-darwin.lib.darwinSystem {
+          inherit system specialArgs;
+          pkgs = nixpkgsWithOverlays system;
+          modules =
+            [
+              (configurationDefaults specialArgs)
+              home-manager.darwinModules.home-manager
+            ]
+            ++ modules;
+        };
+
+      mkWslConfig = hostname:
+        mkNixosConfiguration {
+          inherit hostname;
+          username = "maicol07";
+          isWsl = true;
+          modules = [
+            ./common.nix
+            ./nixos.nix
+            nixos-wsl.nixosModules.wsl
+            ./wsl.nix
+          ];
+        };
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
       nixosConfigurations = {
-        maicol07-pc = mkNixosConfiguration {
-          hostname = "maicol07-pc";
-          username = "maicol07";
-          isWsl = true;
-          modules = [
-            ./common.nix
-            nixos-wsl.nixosModules.wsl
-            ./wsl.nix
-          ];
-        };
+        maicol07-pc = mkWslConfig "maicol07-pc";
 
-        maicol07-galaxy = mkNixosConfiguration {
-          hostname = "maicol07-galaxy";
-          username = "maicol07";
-          isWsl = true;
-          modules = [
-            ./common.nix
-            nixos-wsl.nixosModules.wsl
-            ./wsl.nix
-          ];
-        };
+        maicol07-galaxy = mkWslConfig "maicol07-galaxy";
 
         maicol07-server = mkNixosConfiguration {
           hostname = "maicol07-server";
@@ -124,8 +153,20 @@
           isWsl = false;
           modules = [
             ./common.nix
+            ./nixos.nix
             lanzaboote.nixosModules.lanzaboote
             ./server.nix
+          ];
+        };
+      };
+
+      darwinConfigurations = {
+        "MAICOL-MAC" = mkDarwinConfiguration {
+          hostname = "MAICOL-MAC";
+          username = "maicol07"; # Ensure this matches your macOS short username
+          modules = [
+            ./common.nix
+            ./darwin
           ];
         };
       };

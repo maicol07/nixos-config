@@ -1,113 +1,185 @@
-# Personal config for NixOS (multi-host, WSL and non-WSL)
+<p align="center">
+  <h1>❄️ NixOS & macOS Configuration</h1>
+</p>
 
-## What Is Included
+<p align="center">
+  <img src="https://img.shields.io/badge/NixOS-unstable-5277C3?logo=nixos&logoColor=white" alt="NixOS unstable">
+  <img src="https://img.shields.io/badge/macOS-nix--darwin-999999?logo=apple&logoColor=white" alt="macOS nix-darwin">
+  <img src="https://img.shields.io/badge/Home%20Manager-master-2848A9?logo=nixos&logoColor=white" alt="Home Manager">
+  <img src="https://img.shields.io/badge/WSL-supported-0078D6?logo=windows&logoColor=white" alt="WSL">
+</p>
 
-This config is a take on a productive terminal-driven
-development environment based on my own preferences. However, it is trivial to
-customize to your liking both by removing and adding tools that you prefer.
+<p align="center">
+  Declarative, multi-host Nix configuration for WSL, bare-metal servers, and macOS — built with flakes and Home Manager.
+</p>
 
-- The default editor is [Micro](https://micro-editor.github.io/)
-- The default shell is `fish`
-- Docker desktop on Windows integration is enabled by default
-- The prompt is [Starship](https://starship.rs/)
-- [`fzf`](https://github.com/junegunn/fzf),
-  [`lsd`](https://github.com/lsd-rs/lsd),
-  [`zoxide`](https://github.com/ajeetdsouza/zoxide), and
-  [`broot`](https://github.com/Canop/broot) are integrated into `fish` by
-  default
-  - These can all be disabled easily by setting `enable = false` in
-    [home.nix](home.nix), or just removing the lines all together
-- [`direnv`](https://github.com/direnv/direnv) is integrated into `fish` by
-  default
-- `git` config is generated in [home.nix](home.nix) with options provided to
-  enable private HTTPS clones with secret tokens
-- `fish` config is generated in [home.nix](home.nix) and includes a bunch of plugins
+---
 
-## How to install
-> From the great book [NixOS and Flakes](https://nixos-and-flakes.thiscute.world/nixos-with-flakes/other-useful-tips)
+## 🚀 Quick Start
 
-Before running the commands below, ensure `hostname` (`networking.hostname` or `wsl.wslConf.network.hostname`) and `username` in your `/etc/nixos/configuration.nix` are set to a supported value in this config.
 ```bash
-git clone git@github.com:maicol07/nixos-config.git $HOME/.config/nixos
-sudo mv /etc/nixos /etc/nixos.bak  # Backup the original configuration
+git clone https://github.com/maicol07/nixos-config.git $HOME/.config/nixos
+sudo mv /etc/nixos /etc/nixos.bak
 
-cd $HOME/.config/nixos
-
-# If /etc/nixos/nixos.bak/hardware-configuration.nix exists, copy it to the new config
-if [ -f /etc/nixos.bak/hardware-configuration.nix ]; then
-  sudo cp /etc/nixos.bak/hardware-configuration.nix "./hardware/<host>/hardware-configuration.nix"
-  # Add to git (repo is located in $HOME/.config/nixos)
-  git add "./hardware/<host>/hardware-configuration.nix"
-fi
-
-# Deploy choosing the host (note that absolute paths are not strictly required, relative ones are fine too)
-# WSL
-sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-pc
-sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-galaxy
-# Server (non WSL)
-sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-server
+# Deploy
+sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-pc      # WSL (Galaxy)
+sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-server  # Server
+darwin-rebuild switch --flake $HOME/.config/nixos#MAICOL-MAC           # macOS
 ```
 
-## Project Layout
+---
 
-In order to keep the template as approachable as possible for new NixOS users,
-this project uses a flat layout without any nesting or modularization.
+## 🖥️ Hosts
 
-- `flake.nix` is where dependencies are specified
-  - `nixpkgs` is the current release of NixOS
-  - `nixpkgs-unstable` is the current trunk branch of NixOS (ie. all the
-    latest packages)
-  - `home-manager` is used to manage everything related to your home
-    directory (dotfiles etc.)
-  - `nur` is the community-maintained [Nix User
-    Repositories](https://nur.nix-community.org/) for packages that may not
-    be available in the NixOS repository
-  - `nixos-wsl` exposes important WSL-specific configuration options
-  - `nix-index-database` tells you how to install a package when you run a
-    command which requires a binary not in the `$PATH`
-- `common.nix` has common options for all hosts (shell, user, nix, docker, etc.)
-- `wsl.nix` only includes WSL-specific options (Docker Desktop integration, nix-ld, Nvidia in WSL)
-- `server.nix` is a placeholder for non-WSL server-specific settings
-- `home.nix` is where home configurations are set
-- `home/programs` is the directory that contains all the programs that are installed
-  on the system and their configurations
-  - `home/programs/default.nix` is the entry point for all the programs
-  - `home/programs/programs.nix` is where all the programs are defined
-  - `home/programs/git.nix` is where the `git` configuration is set
-  - `home/programs/micro.nix` is where the `micro` configuration is set
-- `home/shell` is the directory that contains all the shell configurations
-  - `home/shell/default.nix` is the entry point for all the shell configurations
-  - `home/shell/fish.nix` is where the `fish` configuration is set
-  - `home/starship.toml` is where the `starship` configuration is set
-  - `home/starship-minimal.toml` is a streamlined version of the `starship`
-    configuration that is used from the `fish-async-prompt` plugin
+| Host | System | Type | Notes |
+|---|---|---|---|
+| `maicol07-pc` | `x86_64-linux` | WSL | Galaxy Book |
+| `maicol07-galaxy` | `x86_64-linux` | WSL | Ultrabook |
+| `maicol07-server` | `x86_64-linux` | Bare-metal | Secure Boot via Lanzaboote |
+| `MAICOL-MAC` | `aarch64-darwin` | nix-darwin | Apple Silicon |
 
-## Utilities commands
-### Upgprade dependencies
+---
+
+## ✨ Features
+
+- **Shell** — Fish with Starship prompt (full + minimal), `fzf`, `lsd`, `zoxide`, `broot`, `direnv`
+- **Editor** — [Micro](https://micro-editor.github.io/) pre-configured
+- **Git toolchain** — lazygit, git-crypt, interactive rebase, GitHub Copilot CLI
+- **Docker** — enabled everywhere; WSL connects to Docker Desktop on Windows
+- **Nix tooling** — `nh` system manager, `nixd` LSP, `alejandra`/`deadnix`/`statix` formatters
+- **Dev stack** — Node.js (latest), Python 3, PHP 8.5, Deno, MariaDB client
+- **Cloud/Infra** — AWS CLI, Terraform, kubectl, k9s, Supabase CLI
+- **Modular** — every tool is a separate module; toggle or remove as you like
+
+---
+
+## 📦 Installation
+
+<details>
+<summary><b>NixOS (WSL)</b></summary>
+
+```bash
+git clone https://github.com/maicol07/nixos-config.git $HOME/.config/nixos
+sudo mv /etc/nixos /etc/nixos.bak
+sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-pc     # Galaxy
+sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-galaxy # Ultrabook
+```
+</details>
+
+<details>
+<summary><b>NixOS (Bare-metal Server)</b></summary>
+
+```bash
+git clone https://github.com/maicol07/nixos-config.git $HOME/.config/nixos
+sudo cp /etc/nixos/hardware-configuration.nix \
+  $HOME/.config/nixos/hardware/maicol07-server/hardware-configuration.nix
+
+sudo nixos-rebuild boot --flake $HOME/.config/nixos#maicol07-server   # Secure Boot
+sudo nixos-rebuild switch --flake $HOME/.config/nixos#maicol07-server
+```
+</details>
+
+<details>
+<summary><b>macOS (nix-darwin)</b></summary>
+
+Install [Lix](https://lix.systems/install/) first.
+
+```bash
+git clone https://github.com/maicol07/nixos-config.git $HOME/.config/nixos
+cd $HOME/.config/nixos
+nix run nix-darwin -- switch --flake $HOME/.config/nixos#MAICOL-MAC   # First run
+```
+
+Then use the shorter command:
+
+```bash
+darwin-rebuild switch --flake $HOME/.config/nixos#MAICOL-MAC
+```
+</details>
+
+---
+
+## 🗂️ Layout
+
+```
+.
+├── flake.nix                     # Entry point: inputs, outputs, host definitions
+├── common.nix                    # Shared across all hosts
+├── nixos.nix                     # NixOS system config
+├── darwin.nix                    # macOS system config
+├── wsl.nix                       # WSL-only settings
+├── server.nix                    # Bare-metal server config
+│
+├── hardware/
+│   └── maicol07-server/          # Per-machine hardware-configuration.nix
+│
+├── home/
+│   ├── default.nix               # Home Manager entry point
+│   ├── programs/
+│   │   ├── default.nix           # CLI tools: bat, gh, lazygit, nh, etc.
+│   │   ├── git.nix               # Git configuration
+│   │   ├── micro.nix             # Micro editor config
+│   │   ├── syncthing.nix         # File sync
+│   │   ├── node-wrappers.nix     # Node.js shell wrappers
+│   │   ├── packages.nix          # Package orchestration
+│   │   └── packages/
+│   │       ├── common.nix        # Every host
+│   │       ├── personal.nix      # PCs + Mac
+│   │       ├── server.nix        # Server only
+│   │       └── linux.nix         # Linux-only (nemo, etc.)
+│   └── shell/
+│       ├── fish.nix
+│       ├── config.fish
+│       ├── starship.toml
+│       └── starship-minimal.toml
+│
+└── .github/workflows/
+    └── build.yml                 # CI
+```
+
+### Package Selection
+
+`home/programs/packages.nix` composes packages by hostname:
+
+| Host | `common` | `server` | `personal` | `linux` |
+|---|:---:|:---:|:---:|:---:|
+| `maicol07-server` | ✓ | ✓ | | |
+| `maicol07-pc` | ✓ | | ✓ | ✓ |
+| `maicol07-galaxy` | ✓ | | ✓ | ✓ |
+| `MAICOL-MAC` | ✓ | | ✓ | |
+
+---
+
+## 🧩 Flake Inputs
+
+| Input | Branch | Purpose |
+|---|---|---|
+| `nixpkgs` | `nixos-unstable` | Package repository |
+| `home-manager` | `master` | Dotfiles & user packages |
+| `nix-darwin` | — | macOS declarative management |
+| `nixos-wsl` | — | WSL integration modules |
+| `nur` | — | Community Nix User Repositories |
+| `nix-index-database` | — | `command-not-found` database |
+| `lanzaboote` | `v0.4.3` | Secure Boot signing |
+| `lfk` | — | Custom input |
+
+---
+
+## 🔧 Maintenance
+
+**Update all inputs**  
 ```bash
 nix flake update
 ```
 
-### Compare the package versions difference between one deployment and another
-All switches:
+**Compare package versions between generations**  
 ```bash
 nix profile diff-closures --profile /nix/var/nix/profiles/system
-```
-Between two specific switches:
-```bash
 nix store diff-closures /nix/var/nix/profiles/system-99-link /run/current-system
-```
-Note: The numbers are the generations of the system. You can find them with
-```bash
 nix profile history --profile /nix/var/nix/profiles/system
 ```
-Note 2: If you only have made one switch then you can use the booted system as base:
-```bash
-nix store diff-closures /run/booted-system /run/current-system
-```
 
-### Delete all the old and temporary files from deployments
+**Garbage-collect old deployments**  
 ```bash
 gc
 ```
-(from fish alias)
