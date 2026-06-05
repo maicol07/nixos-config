@@ -29,6 +29,11 @@
       fsType = "ext4";
     };
 
+  fileSystems."/mnt/hdd-cameras" =
+    { device = "/dev/disk/by-label/FRIGATE_HDD";
+      fsType = "ext4";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/1b9d7069-6c72-469d-bdd9-bb987a188296"; }
     ];
