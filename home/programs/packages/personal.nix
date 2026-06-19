@@ -44,7 +44,6 @@ in with pkgs; [
   claude-code
   dive
   dtop
-  gemini-cli
   geminicommit
   git-crypt
   git-interactive-rebase-tool
