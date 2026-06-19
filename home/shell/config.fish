@@ -1,7 +1,13 @@
-fish_add_path $PNPM_HOME/bin $HOME/.config/composer/vendor/bin "/mnt/c/Users/Maicol/AppData/Local/Programs/Microsoft VS Code/bin" /mnt/c/Windows
+fish_add_path $PNPM_HOME/bin $HOME/.config/composer/vendor/bin "/mnt/c/Users/Maicol/AppData/Local/Programs/Microsoft VS Code/bin" /mnt/c/Windows /mnt/c/Windows/System32
 
-# X410
-export DISPLAY=localhost:0.0
+# Adding wsl-open as a browser for Bash for Windows
+if string match -riq "microsoft" (uname -r)
+    if test -z "$BROWSER"
+        set -gx BROWSER wsl-open
+    else
+        set -gx BROWSER "$BROWSER:wsl-open"
+    end
+end
 
 function fish_right_prompt
     rpoc_time
