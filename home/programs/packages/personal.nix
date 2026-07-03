@@ -22,6 +22,7 @@ in with pkgs; [
   nodejs_latest
   pnpm
   deno
+  bun
 
   # PHP toolchain
   php85custom.out
@@ -47,12 +48,14 @@ in with pkgs; [
   geminicommit
   git-crypt
   git-interactive-rebase-tool
+  gnumake
   nixd
   wakatime-cli
 
   ###### Other ######
   awscli2
   awsume
+  kubernetes-helm
 ] ++ lib.optionals (!pkgs.stdenv.isDarwin) [
   cruise
 ] ++ (with pkgs; [
