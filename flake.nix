@@ -46,15 +46,15 @@
             fastfetch = prev.fastfetch.overrideAttrs (oldAttrs: {
               buildInputs =
                 if system == "x86_64-linux" then
-                  oldAttrs.buildInputs ++ [ prev.directx-headers ]
+                  (oldAttrs.buildInputs or []) ++ [ prev.directx-headers ]
                 else
-                  oldAttrs.buildInputs;
+                  oldAttrs.buildInputs or [];
 
               cmakeFlags =
                 if system == "x86_64-linux" then
-                  oldAttrs.cmakeFlags ++ [ (nixpkgs.lib.cmakeBool "ENABLE_DIRECTX_HEADERS" true) ]
+                  (oldAttrs.cmakeFlags or []) ++ [ (nixpkgs.lib.cmakeBool "ENABLE_DIRECTX_HEADERS" true) ]
                 else
-                  oldAttrs.cmakeFlags;
+                  oldAttrs.cmakeFlags or [];
             });
           })
         ];
