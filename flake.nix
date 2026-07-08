@@ -15,12 +15,6 @@
 
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3";
-
-      # Optional but recommended to limit the size of your system closure.
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   
     lfk.url = "github:janosmiko/lfk";
 
@@ -154,7 +148,6 @@
           modules = [
             ./common.nix
             ./nixos.nix
-            lanzaboote.nixosModules.lanzaboote
             ./server.nix
           ];
         };
