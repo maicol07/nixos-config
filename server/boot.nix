@@ -12,6 +12,7 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "usb-storage.quirks=152d:a578:u" ];
   boot.kernel.sysctl = {
     "vm.swappiness" = 10;
     "fs.inotify.max_user_watches" = 524288;
