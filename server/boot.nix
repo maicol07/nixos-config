@@ -3,12 +3,11 @@
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Secure Boot (lanzaboote + sbctl)
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/var/lib/sbctl";
+  # Secure Boot (limine)
+  boot.loader.limine = {
+      enable = true;
+      secureBoot.enable = true;
   };
-  systemd.tmpfiles.rules = [ "d /var/lib/sbctl 0700 root root -" ];
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;

@@ -160,7 +160,6 @@ darwin-rebuild switch --flake $HOME/.config/nixos#MAICOL-MAC
 | `nixos-wsl` | — | WSL integration modules |
 | `nur` | — | Community Nix User Repositories |
 | `nix-index-database` | — | `command-not-found` database |
-| `lanzaboote` | `v0.4.3` | Secure Boot signing |
 | `lfk` | — | Custom input |
 
 ---
