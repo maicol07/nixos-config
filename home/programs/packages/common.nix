@@ -13,6 +13,7 @@
   duf
   fresh-editor
   fx
+  git-filter-repo
   grc
   httpie
   jq
