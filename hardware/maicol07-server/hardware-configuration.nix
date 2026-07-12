@@ -28,11 +28,13 @@
   fileSystems."/mnt/hdd" =
     { device = "/dev/disk/by-uuid/c5b97ae3-8a5d-42c6-ad6d-f306b83740ce";
       fsType = "ext4";
+      options = [ "nofail" "x-systemd.device-timeout=5s" ];
     };
 
   fileSystems."/mnt/hdd-cameras" =
     { device = "/dev/disk/by-label/FRIGATE_HDD";
       fsType = "ext4";
+      options = [ "nofail" "x-systemd.device-timeout=5s" ];
     };
 
   swapDevices =
