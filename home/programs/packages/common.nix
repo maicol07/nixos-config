@@ -7,6 +7,7 @@
   htop
 
   ###### Utilities ######
+  antigravity-cli
   croc
   dos2unix
   dust

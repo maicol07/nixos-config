@@ -41,7 +41,6 @@ in with pkgs; [
 
   ###### Utilities ######
   asciinema
-  antigravity-cli
   claude-code
   dive
   dtop
