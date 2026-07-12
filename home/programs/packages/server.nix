@@ -10,6 +10,7 @@
   lshw-gui
   parted
   smartmontools
+  usbutils
   xauth
   xclip
 ]
