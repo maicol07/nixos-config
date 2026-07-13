@@ -2,6 +2,7 @@
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
+    branch = "legacy_580";
     modesetting.enable = true;
     open = false; # Needed to support Quadro K620
     nvidiaSettings = true;
