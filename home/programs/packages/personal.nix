@@ -18,7 +18,7 @@
   };
 in with pkgs; [
   ###### Programming languages ######
-  python3
+  python313
   nodejs_latest
   pnpm
   deno
@@ -42,13 +42,17 @@ in with pkgs; [
   ###### Utilities ######
   asciinema
   claude-code
+  codebase-memory-mcp
   dive
   dtop
   geminicommit
   git-crypt
   git-interactive-rebase-tool
   gnumake
+  headroom
   nixd
+  rtk
+  uv
   wakatime-cli
 
   ###### Other ######

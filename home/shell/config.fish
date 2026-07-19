@@ -48,3 +48,14 @@ if type -q kubectl
         command kubecolor $argv
     end
 end
+
+
+# CBM + Headroom binaries live in ~/.local/bin
+if not contains $HOME/.local/bin $PATH
+    set -gx PATH $HOME/.local/bin $PATH
+end
+
+# Headroom wraps Claude Code for API-layer token compression
+function claude
+    command headroom wrap claude -- $argv
+end
