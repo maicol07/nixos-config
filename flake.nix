@@ -51,7 +51,6 @@
                   oldAttrs.cmakeFlags or [];
             });
           })
-          (import ./home/headroom-overlay.nix)
         ];
       });
 
