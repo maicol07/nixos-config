@@ -48,3 +48,5 @@ if type -q kubectl
         command kubecolor $argv
     end
 end
+
+ctx shell-hook fish | source
