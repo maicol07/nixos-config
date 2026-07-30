@@ -52,20 +52,18 @@ in {
       functions = {
         refresh = "source $HOME/.config/fish/config.fish";
       };
-      shellAbbrs =
-        ({
+      shellAbbrs = (
+        {
           gc = "nix-collect-garbage --delete-old";
-        }
-        // lib.optionalAttrs isWsl {
-          ssh = "/mnt/c/Windows/System32/OpenSSH/ssh.exe";
-        })
-        # navigation shortcuts
-        // {
           ".." = "cd ..";
           "..." = "cd ../../";
           "...." = "cd ../../../";
           "....." = "cd ../../../../";
-        };
+        }
+        // lib.optionalAttrs isWsl {
+          ssh = "/mnt/c/Windows/System32/OpenSSH/ssh.exe";
+        }
+      );
       plugins = [
         {
           name = "artisan-completion";

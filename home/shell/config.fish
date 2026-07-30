@@ -1,4 +1,8 @@
-fish_add_path $PNPM_HOME/bin $HOME/.config/composer/vendor/bin "/mnt/c/Users/Maicol/AppData/Local/Programs/Microsoft VS Code/bin" /mnt/c/Windows /mnt/c/Windows/System32
+fish_add_path $PNPM_HOME/bin \
+    $HOME/.config/composer/vendor/bin \
+    "/mnt/c/Users/Maicol/AppData/Local/Programs/Microsoft VS Code/bin" \
+    /mnt/c/Windows \
+    /mnt/c/Windows/System32
 
 # Adding wsl-open as a browser for Bash for Windows
 if string match -riq "microsoft" (uname -r)
