@@ -121,6 +121,8 @@ darwin-rebuild switch --flake $HOME/.config/nixos#MAICOL-MAC
 │   │   ├── micro.nix             # Micro editor config
 │   │   ├── syncthing.nix         # File sync
 │   │   ├── node-wrappers.nix     # Node.js shell wrappers
+│   │   ├── op.nix                # 1Password CLI WSL wrapper module
+│   │   ├── op.sh                 # 1Password CLI WSL wrapper script
 │   │   ├── packages.nix          # Package orchestration
 │   │   └── packages/
 │   │       ├── common.nix        # Every host
