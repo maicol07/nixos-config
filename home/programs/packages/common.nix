@@ -9,6 +9,7 @@
   ###### Utilities ######
   antigravity-cli
   croc
+  (import ./ctx.nix { inherit pkgs; })
   dos2unix
   dust
   duf
