@@ -6,7 +6,7 @@
       ./git.nix
       ./micro.nix
     ]
-    ++ (if !isServer then [ ./node-wrappers.nix ./op.nix ] else []);
+    ++ (if !isServer then [ ./packages/personal ] else []);
   programs = {
     bat.enable = true;
     bottom.enable = true;
