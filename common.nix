@@ -19,7 +19,7 @@
   # Nix settings common to all hosts
   nix = {
     settings = {
-      experimental-features = "nix-command flakes";
+      experimental-features = [ "nix-command" "flakes" ];
       trusted-users = [ username ];
       accept-flake-config = true;
       auto-optimise-store = true;
