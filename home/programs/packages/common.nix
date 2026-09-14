@@ -8,6 +8,7 @@
 
   ###### Utilities ######
   antigravity-cli
+  bc
   croc
   (import ./ctx.nix { inherit pkgs; })
   dos2unix
