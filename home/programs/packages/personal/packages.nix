@@ -61,6 +61,7 @@ in {
   ] ++ lib.optionals (!isDarwin) [
     cruise
   ] ++ (with pkgs; [
+    glab
     k9s
     kubecolor
     kubectx
