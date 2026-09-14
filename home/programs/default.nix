@@ -1,4 +1,4 @@
-{ hostname, username, pkgs, isServer ? false, ... }: {
+{ hostname, username, pkgs, isServer ? false, isDarwin ? false, ... }: {
   imports =
     [
       ./packages.nix
@@ -20,7 +20,7 @@
       enable = true;
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = (if pkgs.stdenv.isDarwin then "/Users/" else "/home/") + username + "/.config/nixos"; # sets NH_OS_FLAKE variable for you
+      flake = (if isDarwin then "/Users/" else "/home/") + username + "/.config/nixos"; # sets NH_OS_FLAKE variable for you
     };
     vivid = {
       enable = true;

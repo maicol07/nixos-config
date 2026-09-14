@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, isDarwin ? false, ... }:
 let
   php85custom = pkgs.php85.buildEnv {
     extensions = { enabled, all }:
@@ -58,7 +58,7 @@ in {
     awscli2
     awsume
     kubernetes-helm
-  ] ++ lib.optionals (!pkgs.stdenv.isDarwin) [
+  ] ++ lib.optionals (!isDarwin) [
     cruise
   ] ++ (with pkgs; [
     k9s
