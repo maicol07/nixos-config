@@ -20,6 +20,7 @@
       "chrome-remote-desktop-host"
       "iterm2"
       "jetbrains-toolbox"
+      "jump-desktop-connect"
       "microsoft-edge"
       "neardrop"
       "parsec"
