@@ -5,8 +5,16 @@
   lib,
   ...
 }: {
+  imports = [ ./modules/wsl-windows-hello.nix ];
+
   wsl = {
     enable = true;
+    windowsHello = {
+      enable = true;
+      publicKey = let
+        path = ./keys + "/${hostname}-wsl-hello.pem";
+      in if builtins.pathExists path then path else null;
+    };
     defaultUser = username;
     startMenuLaunchers = true;
     usbip.enable = true;
