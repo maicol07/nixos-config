@@ -3,9 +3,12 @@
   hostname,
   pkgs,
   lib,
+  self,
   ...
 }: {
-  imports = [ ./modules/wsl-windows-hello.nix ];
+  imports = [ ./modules/wsl-windows-hello.nix ./modules/wsl-windows-dotfiles.nix ];
+
+  environment.systemPackages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.sys ];
 
   wsl = {
     enable = true;

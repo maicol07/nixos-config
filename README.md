@@ -48,6 +48,7 @@ darwin-rebuild switch --flake $HOME/.config/nixos#MAICOL-MAC           # macOS
 - **Docker** — enabled everywhere; WSL connects to Docker Desktop on Windows
 - **Nix tooling** — `nh` system manager, `nixd` LSP, `alejandra`/`deadnix`/`statix` formatters
 - **WSL sudo authentication** — [Windows Hello enrollment and Linux password fallback](docs/wsl-windows-hello.md)
+- **Shared Windows dotfiles** — [automatic deployment on WSL rebuilds and drift checks](docs/windows-dotfiles.md)
 - **Dev stack** — Node.js (latest), Python 3, PHP 8.5, Deno, MariaDB client
 - **Cloud/Infra** — AWS CLI, Terraform, kubectl, k9s, Supabase CLI
 - **Modular** — every tool is a separate module; toggle or remove as you like

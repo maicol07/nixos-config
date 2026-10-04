@@ -150,6 +150,36 @@
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
+      packages.x86_64-linux = let
+        pkgs = nixpkgsWithOverlays "x86_64-linux";
+        windowsFor = hostname: import ./windows {
+          inherit pkgs;
+          home = self.nixosConfigurations.${hostname}.config.home-manager.users.maicol07;
+        };
+      in {
+        sys = import ./pkgs/sys { inherit pkgs; };
+        windows-dotfiles-maicol07-pc = windowsFor "maicol07-pc";
+        windows-dotfiles-maicol07-galaxy = windowsFor "maicol07-galaxy";
+      };
+
+      apps.x86_64-linux.sys = {
+        type = "app";
+        program = "${self.packages.x86_64-linux.sys}/bin/sys";
+      };
+
+      checks.x86_64-linux.windows-dotfiles = let
+        pkgs = nixpkgsWithOverlays "x86_64-linux";
+      in pkgs.runCommand "windows-dotfiles-tests" {
+        nativeBuildInputs = [ pkgs.python3 pkgs.git ];
+      } ''
+        export PYTHONDONTWRITEBYTECODE=1
+        export WINDOWS_DOTFILES=${self.packages.x86_64-linux.windows-dotfiles-maicol07-pc}
+        export SYS_SCRIPTS=${./scripts}
+        export AI_INSTRUCTIONS=${./home/AGENTS.md}
+        python3 ${./tests/windows-dotfiles.py}
+        touch "$out"
+      '';
+
       nixosConfigurations = {
         maicol07-pc = mkWslConfig "maicol07-pc";
 
