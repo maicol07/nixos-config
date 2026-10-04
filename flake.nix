@@ -37,6 +37,11 @@
         overlays = [
           nur.overlays.default
           (_: prev: {
+            # GCC 16 defaults to C++20, whose std::lerp conflicts with rxvt's helper.
+            rxvt-unicode-unwrapped = prev.rxvt-unicode-unwrapped.overrideAttrs (_: {
+              CXXFLAGS = "-O2 -std=gnu++17";
+            });
+
             fastfetch = prev.fastfetch.overrideAttrs (oldAttrs: {
               buildInputs =
                 if system == "x86_64-linux" then
