@@ -34,6 +34,9 @@
   - **Generated & Vendor Files**:
     - Do not manually edit generated, vendored, build-output, or lock-derived files unless the repository workflow explicitly requires it.
     - Modify the source of truth and regenerate artifacts using the project's existing tooling.
+  - **Change Separation**:
+    - Keep unrelated concerns logically separated during implementation, even when they touch the same file.
+    - Avoid interleaving refactors, cleanup, formatting, and behavioral changes unless they are required by the same task.
 - **Scope & Hierarchy**:
   - Match existing repository style even if it differs from personal preference.
   - If project guidelines (local `CLAUDE.md` or patterns) conflict with these global rules, prioritize local project rules.
@@ -119,3 +122,18 @@
   - Add `Assisted-by: <model>` when the AI only assisted with planning, review, debugging, or minor changes.
   - Do not add either trailer for negligible AI involvement.
 - **Strategy**: Prefer `git merge` over `git squash` unless squash is explicitly requested.
+- **Atomic Commits**:
+  - When commits are explicitly requested, keep each commit focused on one logical change or concern.
+  - Separate independent changes into different commits even when they modify the same file.
+  - Stage changes selectively at hunk/line level when necessary instead of committing the entire file as one unit.
+  - Do not mix refactors, formatting, dependency changes, generated files, tests, and behavior changes in the same commit unless they are inseparable.
+  - Each commit should leave the repository in a coherent, reviewable state and should ideally build or pass the relevant checks on its own.
+  - Prefer multiple small, meaningful commits over one large mixed commit.
+
+- **Commit Refinement**:
+  - If a later fix, adjustment, cleanup, or test belongs logically to an existing commit, fold it into that commit instead of creating a new commit.
+  - Amend the latest commit when it is the target.
+  - For earlier commits, use fixup commits and autosquash/rebase, or an equivalent safe workflow, so the final history contains the change in its original logical commit.
+  - Create a new commit only when the change represents a genuinely separate concern.
+  - Do not leave temporary `fixup!`, `squash!`, "fix", or follow-up commits in the final history.
+  - Do not rewrite commits that have already been pushed/shared unless explicitly approved.
