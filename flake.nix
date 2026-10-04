@@ -42,6 +42,15 @@
               CXXFLAGS = "-O2 -std=gnu++17";
             });
 
+            # GCC 16 provides <simd>, but Contour builds as C++23 and needs the experimental API.
+            contour = prev.contour.overrideAttrs (oldAttrs: {
+              postPatch = (oldAttrs.postPatch or "") + ''
+                substituteInPlace src/vtbackend/Image.cpp \
+                  --replace-fail '#if __has_include(<simd>)' \
+                    '#if __has_include(<simd>) && __cplusplus >= 202600L'
+              '';
+            });
+
             fastfetch = prev.fastfetch.overrideAttrs (oldAttrs: {
               buildInputs =
                 if system == "x86_64-linux" then
