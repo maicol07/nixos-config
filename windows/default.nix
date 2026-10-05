@@ -12,7 +12,7 @@
     git.signing.signer
     git.settings.core.sshCommand
   ];
-  nativeCommands = ["gh" "delta" "git-lfs" "op-ssh-sign.exe" "ssh.exe"];
+  nativeCommands = ["gh" "delta" "git-lfs" "C:/Users/Maicol/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe" "C:/Windows/System32/OpenSSH/ssh.exe"];
   native = value:
     if builtins.isString value
     then lib.replaceStrings commands nativeCommands value
