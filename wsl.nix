@@ -27,6 +27,9 @@
     docker-desktop.enable = true;
     useWindowsDriver = true;
     wslConf.automount.ldconfig = true;
+    extraBin = [
+      { src = "${pkgs.coreutils}/bin/test"; }
+    ];
   };
   
   hardware = lib.mkMerge [
