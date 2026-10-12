@@ -68,6 +68,7 @@ in {
     prek
     supabase-cli
     terraform
+    terraform-docs
     terragrunt
   ]);
 }
