@@ -52,6 +52,7 @@ in {
     git-interactive-rebase-tool
     gnumake
     nixd
+    openssl
     wakatime-cli
 
     ###### Other ######
