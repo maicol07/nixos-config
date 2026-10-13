@@ -41,7 +41,7 @@
   - Match existing repository style even if it differs from personal preference.
   - If project guidelines (local `CLAUDE.md` or patterns) conflict with these global rules, prioritize local project rules.
 - **Tools & Terminal**:
-  - If `agentbridge` MCP is available, use its tools over shell commands or code navigation.
+  - If `agentbridge` MCP is available, use its tools over shell commands or code navigation only if the project name provided by agentbridge matches the current repository/directory name.
   - Use non-interactive terminal flags (e.g., `git --no-pager diff` or `git diff | cat`).
   - **Destructive Operations**:
     - Do not run destructive or irreversible commands unless explicitly requested.
