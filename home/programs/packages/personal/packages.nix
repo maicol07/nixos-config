@@ -57,7 +57,6 @@ in {
 
     ###### Other ######
     awscli2
-    awsume
     kubernetes-helm
     ssm-session-manager-plugin
   ] ++ lib.optionals (!isDarwin) [
