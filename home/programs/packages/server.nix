@@ -10,6 +10,7 @@
   lshw-gui
   parted
   smartmontools
+  speedtest-go
   usbutils
   xauth
   xclip
