@@ -59,6 +59,7 @@ in {
     awscli2
     awsume
     kubernetes-helm
+    ssm-session-manager-plugin
   ] ++ lib.optionals (!isDarwin) [
     cruise
   ] ++ (with pkgs; [
