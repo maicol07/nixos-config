@@ -11,6 +11,7 @@
   bc
   croc
   (import ./ctx.nix { inherit pkgs; })
+  doggo
   dos2unix
   dust
   duf
