@@ -5,7 +5,7 @@
 format = """$sudo$directory$status$character"""
 
 # move the rest of the prompt to the right
-right_format = """$all"""
+right_format = """$aws${env_var.CTX_CURRENT}$all"""
 
 [aws]
 format = '[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
@@ -49,6 +49,11 @@ symbol = " "
 
 [elm]
 symbol = " "
+
+[env_var.CTX_CURRENT]
+format = '([$symbol$env_value]($style) )'
+symbol = '󰒓 '
+style = 'bold green'
 
 [fennel]
 symbol = " "
