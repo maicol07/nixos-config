@@ -53,4 +53,6 @@ if type -q kubectl
     end
 end
 
-ctx shell-hook fish | source
+if type -q ctx
+    ctx shell-hook fish | source
+end
