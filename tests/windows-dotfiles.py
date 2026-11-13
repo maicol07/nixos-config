@@ -114,7 +114,7 @@ class DeploymentTests(unittest.TestCase):
             self.skipTest("WINDOWS_DOTFILES was not provided")
         bundle = Path(bundle_path)
         files = deploy.plan(bundle, self.roots)
-        self.assertEqual(len(files), 8)
+        self.assertEqual(len(files), 9)
         for file in files:
             self.assertNotIn(b"/nix/store/", file.content)
             self.assertNotIn(b"/mnt/c/", file.content)

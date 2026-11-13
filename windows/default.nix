@@ -43,6 +43,7 @@
       (shared "userprofile" ".config/starship-minimal.toml" home.home.file.".config/starship-minimal.toml".source)
       (shared "userprofile" ".config/micro/settings.json" home.xdg.configFile."micro/settings.json".source)
       (shared "appdata" "lsd/config.yaml" home.xdg.configFile."lsd/config.yaml".source)
+      (shared "userprofile" ".aws/config" home.home.file.".aws/config".source)
       (shared "userprofile" ".codex/AGENTS.md" (builtins.path {path = home.home.file.".codex/AGENTS.md".source;}))
       (shared "userprofile" ".claude/CLAUDE.md" (builtins.path {path = home.home.file.".claude/CLAUDE.md".source;}))
     ]
