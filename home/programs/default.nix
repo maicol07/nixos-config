@@ -5,6 +5,7 @@
       ./syncthing.nix
       ./git.nix
       ./micro.nix
+      ./aws.nix
     ]
     ++ (if !isServer then [ ./packages/personal ] else []);
   programs = {
