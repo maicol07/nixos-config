@@ -50,20 +50,22 @@ in {
     openssl
     wakatime-cli
 
-    ###### Other ######
+    ###### Infrastructure ######
     awscli2
-    kubernetes-helm
-    ssm-session-manager-plugin
-  ] ++ lib.optionals (!isDarwin) [
-    cruise
-  ] ++ (with pkgs; [
     glab
     k9s
     kubecolor
     kubectx
-    prek
+    kubernetes-helm
+    ssm-session-manager-plugin
     terraform
     terraform-docs
     terragrunt
-  ]);
+
+    ###### Other ######
+    prek
+
+  ] ++ lib.optionals (!isDarwin) [
+    cruise
+  ];
 }
