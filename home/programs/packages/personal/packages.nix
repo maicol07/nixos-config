@@ -21,9 +21,6 @@ in {
   home.packages = with pkgs; [
     ###### Programming languages ######
     uv
-    nodejs_latest
-    pnpm
-    deno
     bun
 
     # PHP toolchain
@@ -31,8 +28,8 @@ in {
     php85custom.packages.composer
 
     # SQL
-    mariadb.client
     mycli
+    pgcli
 
     ###### Formatters and linters ######
     alejandra
@@ -67,7 +64,6 @@ in {
     kubecolor
     kubectx
     prek
-    supabase-cli
     terraform
     terraform-docs
     terragrunt
