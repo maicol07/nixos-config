@@ -20,7 +20,7 @@ let
 in {
   home.packages = with pkgs; [
     ###### Programming languages ######
-    python3
+    uv
     nodejs_latest
     pnpm
     deno
