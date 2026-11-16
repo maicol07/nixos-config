@@ -40,7 +40,6 @@ in {
 
     ###### Utilities ######
     asciinema
-    claude-code
     dive
     dtop
     geminicommit
