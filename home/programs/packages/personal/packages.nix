@@ -53,6 +53,8 @@ in {
     ###### Infrastructure ######
     awscli2
     glab
+    helm-docs
+    helm-dashboard
     k9s
     kubecolor
     kubectx
