@@ -41,7 +41,6 @@ in {
     ###### Utilities ######
     asciinema
     claude-code
-    codex
     dive
     dtop
     geminicommit
