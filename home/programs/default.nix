@@ -6,6 +6,7 @@
       ./git.nix
       ./micro.nix
       ./aws.nix
+      ./ctx.nix
     ]
     ++ (if !isServer then [ ./packages/personal ] else []);
   programs = {
